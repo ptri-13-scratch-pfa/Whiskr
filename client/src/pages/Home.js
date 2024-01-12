@@ -1,9 +1,12 @@
-import React from "react";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-    return(
-        <h1>Whiskr!!!!!!</h1>
-    )
-}
+  return (
+    <>
+      <h3>About</h3>
+    </>
+  );
+};
 
 export default Home;
