@@ -9,29 +9,31 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [adopter, setAdopter] = useState(false);
   const [guardian, setGuardian] = useState(false);
-  const [adopterColor, setAdopterColor] = useState(false);
-  const [guardianColor, setGuardianColor] = useState(false);
+  const [adopterColor, setAdopterColor] = useState(true);
+  const [guardianColor, setGuardianColor] = useState(true);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log(email, password);
+    console.log(email, password, adopter, guardian);
   };
 
   const handleClickAdopter = async e => {
     e.preventDefault();
     setAdopter(true);
     setGuardian(false);
-    setGuardianColor(guardianColor);
-    setAdopterColor(!adopterColor);
+    setAdopterColor(false);
+    setGuardianColor(true);
+    console.log('guardian',guardian,'adopter',adopter)
   };
 
   const handleClickGuardian = async e => {
     e.preventDefault();
     setGuardian(true);
     setAdopter(false);
-    setGuardianColor(!guardianColor);
-    setAdopterColor(adopterColor);
+    setGuardianColor(false);
+    setAdopterColor(true);
+    console.log('guardian',guardian,'adopter',adopter)
   };
 
   return (
@@ -60,14 +62,14 @@ const Signup = () => {
           onClick={handleClickAdopter}
           color={adopterColor ? 'primary' : 'secondary'}
         >
-          Adopter
+          I'm Looking to Adopt a Cat!
         </Button>
         <Button
           variant='contained'
           onClick={handleClickGuardian}
           color={guardianColor ? 'primary' : 'secondary'}
         >
-          Guardian
+          I want to put a cat up for adoption!
         </Button>
       </div>
       <button>Create Account</button>
