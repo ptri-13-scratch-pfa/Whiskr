@@ -6,16 +6,16 @@ const loginRoute = require("./routes/loginRoutes");
 const signupRoute = require("./routes/signupRoutes.js");
 const Profile = require("./models/models.js");
 
-dotenv.config();
+dotenv.config()
 const app = express();
-const PORT = 5656;
+const PORT = process.env.SERV_PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, "../build")));
 
 
-const MONGO_URI = "mongodb+srv://01dukedomlockers:32AGNWM2EbPmJjG1@cluster1.t8kdtqj.mongodb.net/?retryWrites=true&w=majority";
+const MONGO_URI = process.env.MONGO_URI;
 
 
 mongoose.connect(MONGO_URI, {
