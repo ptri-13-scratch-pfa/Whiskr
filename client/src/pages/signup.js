@@ -1,39 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-
 import { useState } from 'react';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [adopter, setAdopter] = useState(false);
-  const [guardian, setGuardian] = useState(false);
+  const [profileType, setProfileType] = useState('')
   const [adopterColor, setAdopterColor] = useState(true);
-  const [guardianColor, setGuardianColor] = useState(true);
+  const [catColor, setCatColor] = useState(true);
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    console.log(email, password, adopter, guardian);
+    console.log(email, password, profileType);
   };
 
   const handleClickAdopter = async e => {
     e.preventDefault();
-    setAdopter(true);
-    setGuardian(false);
+    setProfileType('adopter')
     setAdopterColor(false);
-    setGuardianColor(true);
-    console.log('guardian',guardian,'adopter',adopter)
+    setCatColor(true);
   };
 
-  const handleClickGuardian = async e => {
+  const handleClickCat = async e => {
     e.preventDefault();
-    setGuardian(true);
-    setAdopter(false);
-    setGuardianColor(false);
+    setProfileType('cat')
+    setCatColor(false);
     setAdopterColor(true);
-    console.log('guardian',guardian,'adopter',adopter)
+  };
+
+  const getCreateAccountRoute = () => {
+    if(email !== '' && password.length > 8){
+      return (profileType==='cat') ? '/createAccountCat' : '/createAccountAdopter';
+    }
   };
 
   return (
@@ -66,13 +66,15 @@ const Signup = () => {
         </Button>
         <Button
           variant='contained'
-          onClick={handleClickGuardian}
-          color={guardianColor ? 'primary' : 'secondary'}
+          onClick={handleClickCat}
+          color={catColor ? 'primary' : 'secondary'}
         >
           I want to put a cat up for adoption!
         </Button>
       </div>
-      <button>Create Account</button>
+      <Link to={getCreateAccountRoute()}>
+        <button>Create Account</button>
+      </Link>
     </form>
   );
 };
