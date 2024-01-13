@@ -1,9 +1,10 @@
 {
     "scripts": {
         "build": "webpack",
-        "dev": "webpack serve --open"
+        "dev": "NODE_ENV=development concurrently \"nodemon --watch server ./server/server.js\" \"webpack serve --open\""
     },
     "dependencies": {
+        "concurrently": "^8.2.2",
         "dotenv": "^16.3.1",
         "dotenv-webpack": "^8.0.1",
         "html-webpack-plugin": "^5.6.0",
