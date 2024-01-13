@@ -2,16 +2,20 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-dotenv.config()
 const loginRoute = require("./routes/loginRoutes");
-
-const app = express();
-const PORT = process.env.SERV_PORT;
-
+const signupRoute = require("./routes/signupRoutes.js");
 const Profile = require("./models/models.js");
 
+dotenv.config();
+const app = express();
+const PORT = 5656;
 
-const MONGO_URI = process.env.MONGO_URI;
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.resolve(__dirname, "../build")));
+
+
+const MONGO_URI = "mongodb+srv://01dukedomlockers:32AGNWM2EbPmJjG1@cluster1.t8kdtqj.mongodb.net/?retryWrites=true&w=majority";
 
 
 mongoose.connect(MONGO_URI, {
@@ -30,7 +34,7 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
 
-// app.use("/login", loginRoute);
+app.use("/signup", signupRoute);
 
 app.get('/', async (req, res) => {
   await Profile.Profile.create({
@@ -42,5 +46,15 @@ app.get('/', async (req, res) => {
   res.status(200).json("Get request to / works!");
 })
 
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: "Express error handler caught unknown middleware error",
+    status: 500,
+    message: { err: "An error occurred" },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
 module.exports = app;

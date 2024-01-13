@@ -30,7 +30,63 @@ const profileSchema = new Schema({
   pic3: String,
 });
 
+const userSchema = new Schema({
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+})
+
+
+const adopterSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  aboutMe: {
+    type: String,
+    required: true
+  },
+  imageUrl: {
+    type: String,
+    required: true
+  },
+  profession: {
+    type: String,
+    required: true
+  }
+})
+
+const catSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  breed: {
+    type: String,
+    required: true,
+  },
+  age: {
+    type: String,
+    required: true,
+  },
+  aboutMe: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+});
 
 const Profile = mongoose.model('profile', profileSchema);
+const User = mongoose.model('User', userSchema);
+const Adopter = mongoose.model("Adopter", adopterSchema);
+const Cat = mongoose.model("Cat", catSchema);
 
-module.exports = { Profile };
+module.exports = { Profile, User, Adopter, Cat };
