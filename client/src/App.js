@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import CreateAccountAdopter from './pages/CreateAccountAdopter';
 import CreateAccountCat from './pages/CreateAccountCat';
 import About from './pages/About';
+import AdopterCardsPage from './pages/AdopterCardsPage';
 
 function App() {
   return (
@@ -16,20 +17,18 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div className='container'>
-        <Routes>
-          <Route className='signup-link' path='/' element={<Home />} />
-          <Route />
-          <Route path='/login' element={<Login />} />
-          <Route />
-          <Route path='/about' element={<About />} />
-          <Route />
-          <Route path='/signup' element={<Signup />} />
-          <Route />
-          <Route path='/createAccountAdopter' element={<CreateAccountAdopter />} />
-          <Route />
-          <Route path='/createAccountCat' element={<CreateAccountCat />} />
-          <Route />
-        </Routes>
+          <Routes>
+            <Route className='signup-link' path='/' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route
+              path='/createAccountAdopter'
+              element={<CreateAccountAdopter />}
+            />
+            <Route path='/createAccountCat' element={<CreateAccountCat />} />
+            <Route path='/adopterCardsPage' element={<AdopterCardsPage />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </div>

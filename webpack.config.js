@@ -3,7 +3,6 @@ const dotenv = require('dotenv').config();
 const DotenvWebpack = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
   entry: path.join(__dirname, './client/src/', 'index.js'),
   output: {
@@ -52,9 +51,8 @@ module.exports = {
     compress: true,
     port: process.env.DEV_PORT,
     proxy: {
-      '/api': {
+      '/': {
         target: 'http://localhost:3000',
-
       },
     },
   },
@@ -64,6 +62,6 @@ module.exports = {
   performance: {
     hints: false,
     maxEntrypointSize: 512000,
-    maxAssetSize: 512000
+    maxAssetSize: 512000,
   },
 };
