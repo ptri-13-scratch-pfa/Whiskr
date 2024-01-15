@@ -6,13 +6,12 @@ import { Button } from '@mui/material';
 import { useState, useRef } from 'react';
 
 const CreateAccountAdopter = () => {
-
   const nameRef = useRef();
   const aboutMeRef = useRef();
   const profilePicRef = useRef();
   const professionRef = useRef();
   const experienceRef = useRef();
-  
+
   const handleSubmit = async e => {
     e.preventDefault();
     const newAdopter = {
@@ -20,9 +19,9 @@ const CreateAccountAdopter = () => {
       aboutMe: aboutMeRef.current.value,
       profilePic: profilePicRef.current.value,
       profession: professionRef.current.value,
-      experience: experienceRef.current.value
-    }
-    console.log(newAdopter)
+      experience: experienceRef.current.value,
+    };
+    console.log(newAdopter);
     // try {
     //   await axios.post('/users/adopters/register', newAdopter);
     // } catch(err) {
@@ -30,33 +29,34 @@ const CreateAccountAdopter = () => {
     // }
   };
 
-
-
   return (
     <div>
       <h3>Create your adopter profile!</h3>
       <form className='signup' onSubmit={handleSubmit}>
-        <input type='text' placeholder='full name' ref={ nameRef }/>
-        <input type='about me' placeholder='about me' ref={ aboutMeRef }/>
-        <input type='url' placeholder='image url' ref={ profilePicRef }/>
-        <input type='profession' placeholder='profession' ref={ professionRef }/>
-        <select name="age" id="age" ref={ experienceRef }>
-          <option value="1">0-6 months</option>
-          <option value="2">1-2 Years</option>
-          <option value="3">2-5 Years</option>
-          <option value="4">5+ Years</option>
+        <label>Name: </label>
+        <input type='text' placeholder='full name' ref={nameRef} />
+        <label>About Me: </label>
+        <input type='about me' placeholder='about me' ref={aboutMeRef} />
+        <label>Add images here: </label>
+        <input type='file' placeholder='image url' ref={profilePicRef} />
+        <label>Profession: </label>
+        <input type='profession' placeholder='profession' ref={professionRef} />
+        <label>Experience w/ Cats: </label>
+        <select name='age' id='age' ref={experienceRef}>
+          <option value='1'>0-6 months</option>
+          <option value='2'>1-2 Years</option>
+          <option value='3'>2-5 Years</option>
+          <option value='4'>5+ Years</option>
         </select>
-        <button>Create Profile</button>
+        <Link to='/AdopterCardsPage'>
+          <button>Create Profile</button>
+        </Link>
       </form>
     </div>
-    
   );
 };
 
 export default CreateAccountAdopter;
-
-
-
 
 // //How would you describe your cat experience?
 // If applicable, please list any pets that currently live in your home:

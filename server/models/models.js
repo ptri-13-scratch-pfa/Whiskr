@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
+
+const salt_factor = 10;
 
 /* Create schema below
 const someSchema = new Schema({
@@ -20,6 +23,8 @@ const someSchema = new Schema({
 });
 */
 
+console.log('>>> salt_factor: ', salt_factor);
+
 const profileSchema = new Schema({
   name: String,
   aboutMe: String,
@@ -33,33 +38,49 @@ const profileSchema = new Schema({
 const userSchema = new Schema({
   email: {
     type: String,
-    required: true
+    unique: true,
+    required: true,
   },
   password: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+  profileType: {
+    type: String,
+    required: true,
+  },
+});
 
+userSchema.pre('save', function (next) {
+  const user = this;
+  console.log('>>> user password before converting: ', user);
+
+  bcrypt.hash(user.password, salt_factor, function (err, hash) {
+    if (err) return next(err);
+    user.password = hash;
+    console.log('>>> user password in hash: ', user.password);
+    return next();
+  });
+});
 
 const adopterSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   aboutMe: {
     type: String,
-    required: true
+    required: true,
   },
   imageUrl: {
     type: String,
-    required: true
+    required: true,
   },
   profession: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 const catSchema = new Schema({
   name: {
@@ -86,7 +107,7 @@ const catSchema = new Schema({
 
 const Profile = mongoose.model('profile', profileSchema);
 const User = mongoose.model('User', userSchema);
-const Adopter = mongoose.model("Adopter", adopterSchema);
-const Cat = mongoose.model("Cat", catSchema);
+const Adopter = mongoose.model('Adopter', adopterSchema);
+const Cat = mongoose.model('Cat', catSchema);
 
 module.exports = { Profile, User, Adopter, Cat };
