@@ -1,31 +1,34 @@
 import React from 'react';
 import { useState } from 'react';
 import TinderCard from 'react-tinder-card';
+import axios from 'axios';
 
-const AdopterDashboard = () => {
-  // Mock data:
-  const characters = [
-    {
-      name: 'Doge Cat',
-      url: 'https://i.imgur.com/7F5mhPp.gif',
-    },
-    {
-      name: 'River',
-      url: 'https://i.imgur.com/q350qch.jpeg',
-    },
-    {
-      name: 'Stretch',
-      url: 'https://i.imgur.com/Ovrl1BE.jpeg',
-    },
-    {
-      name: 'Kitty',
-      url: 'https://i.imgur.com/rRdeX5I.jpeg',
-    },
-    {
-      name: 'Echo',
-      url: 'https://i.imgur.com/Cmp5tNf.jpeg',
-    },
-  ];
+const AdopterDashboard = async () => {
+//GET request to /api/cats
+  const characters = axios.get('/api/cats')
+// Mock data:
+  // const characters = [
+  //   {
+  //     name: 'Doge Cat',
+  //     url: 'https://i.imgur.com/7F5mhPp.gif',
+  //   },
+  //   {
+  //     name: 'River',
+  //     url: 'https://i.imgur.com/q350qch.jpeg',
+  //   },
+  //   {
+  //     name: 'Stretch',
+  //     url: 'https://i.imgur.com/Ovrl1BE.jpeg',
+  //   },
+  //   {
+  //     name: 'Kitty',
+  //     url: 'https://i.imgur.com/rRdeX5I.jpeg',
+  //   },
+  //   {
+  //     name: 'Echo',
+  //     url: 'https://i.imgur.com/Cmp5tNf.jpeg',
+  //   },
+  // ];
 
   const [lastDirection, setLastDirection] = useState();
 

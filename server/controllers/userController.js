@@ -26,16 +26,12 @@ userController.createUser = async (req, res, next) => {
 
 userController.createAdopter = async (req, res, next) => {
   console.log(req.body);
-  const { name, aboutMe, imageUrl, profession } = req.body;
+  const { name, aboutMe, imageUrl, profession, experience } = req.body;
 
   try {
     if (name && imageUrl && profession) {
-      Profile.Adopter.create({ name, aboutMe, imageUrl, profession })
-        .then(next())
-        .catch(err => {
-          'Error in UserController.createUser into datasets: ' +
-            JSON.stringify(err);
-        });
+      await Profile.Adopter.create({ name, aboutMe, imageUrl, profession, experience })
+        return next()
     } else {
       console.log('please input required information');
     }

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const loginRoute = require('./routes/loginRoutes');
 const signupRoute = require('./routes/signupRoutes.js');
+const apiRoute = require('./routes/apiRoutes.js');
 
 dotenv.config();
 const app = express();
@@ -30,6 +31,8 @@ mongoose
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
+
+app.use('/api', apiRoute)
 
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);

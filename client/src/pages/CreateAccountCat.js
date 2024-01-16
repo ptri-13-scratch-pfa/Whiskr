@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-
+import axios from 'axios';
 import { useState, useRef } from 'react';
 
 const CreateAccountCat = () => {
@@ -18,14 +18,14 @@ const CreateAccountCat = () => {
       breed: catBreedRef.current.value,
       age: catAgeRef.current.value,
       aboutMe: aboutMeRef.current.value,
-      profilePic: profilePicRef.current.value,
+      imageUrl: 'https://i.imgur.com/7F5mhPp.gif',
     };
     console.log(newCat);
-    // try {
-    //   await axios.post('/users/adopters/register', newAdopter);
-    // } catch(err) {
-    //   console.log(err);
-    // }
+    try {
+      await axios.post('/signup/cat', newCat);
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   return (

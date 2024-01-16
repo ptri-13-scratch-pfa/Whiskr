@@ -10,6 +10,7 @@ import CreateAccountAdopter from './pages/CreateAccountAdopter';
 import CreateAccountCat from './pages/CreateAccountCat';
 import About from './pages/About';
 import AdopterCardsPage from './pages/AdopterCardsPage';
+import CatCardsPage from './pages/CatsCardsPage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             />
             <Route path='/createAccountCat' element={<CreateAccountCat />} />
             <Route path='/adopterCardsPage' element={<AdopterCardsPage />} />
+            <Route path='/CatsCardsPage' element={<CatCardsPage />} />
           </Routes>
         </div>
       </BrowserRouter>

@@ -2,31 +2,37 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 // import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
-
+import axios from 'axios';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAccountAdopter = () => {
   const nameRef = useRef();
   const aboutMeRef = useRef();
-  const profilePicRef = useRef();
+  // const imageUrl = useRef();
   const professionRef = useRef();
   const experienceRef = useRef();
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
     const newAdopter = {
       name: nameRef.current.value,
       aboutMe: aboutMeRef.current.value,
-      profilePic: profilePicRef.current.value,
+      // profilePic: profilePicRef.current.value,
+      imageUrl: 'https://i.imgur.com/7F5mhPp.gif',
       profession: professionRef.current.value,
       experience: experienceRef.current.value,
     };
     console.log(newAdopter);
-    // try {
-    //   await axios.post('/users/adopters/register', newAdopter);
-    // } catch(err) {
-    //   console.log(err);
-    // }
+    try {
+      const adopterResponse = await axios.post('/signup/adopter', newAdopter);
+      if(adopterResponse){
+        navigate('/CatsCardsPage')
+      }
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -37,8 +43,8 @@ const CreateAccountAdopter = () => {
         <input type='text' placeholder='full name' ref={nameRef} />
         <label>About Me: </label>
         <input type='about me' placeholder='about me' ref={aboutMeRef} />
-        <label>Add images here: </label>
-        <input type='file' placeholder='image url' ref={profilePicRef} />
+        {/* <label>Add images here: </label>
+        <input type='file' placeholder='image url' ref={profilePicRef} /> */}
         <label>Profession: </label>
         <input type='profession' placeholder='profession' ref={professionRef} />
         <label>Experience w/ Cats: </label>
@@ -48,9 +54,9 @@ const CreateAccountAdopter = () => {
           <option value='3'>2-5 Years</option>
           <option value='4'>5+ Years</option>
         </select>
-        <Link to='/AdopterCardsPage'>
-          <button>Create Profile</button>
-        </Link>
+        {/* <Link to='/AdopterCardsPage'> */}
+        <button>Create Profile</button>
+        {/* </Link> */}
       </form>
     </div>
   );
