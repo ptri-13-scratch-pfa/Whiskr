@@ -25,6 +25,8 @@ const Login = () => {
       //   console.log('userToFind: ', userCredentials);
       //   console.log('user found in database: ', user);
 
+      console.log('user:', user);
+
       if (user) {
         // Redirect based on profileType
         if (user.profileType === 'Adopter') {
