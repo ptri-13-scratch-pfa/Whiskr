@@ -22,7 +22,7 @@ const CreateAccountAdopter = () => {
       // profilePic: profilePicRef.current.value,
       imageUrl: 'https://i.imgur.com/7F5mhPp.gif',
       profession: professionRef.current.value,
-      experience: experienceRef.current.value,
+      experience: experienceRef.current.value
     };
     console.log(newAdopter);
     try {

@@ -28,7 +28,7 @@ function App() {
               element={<CreateAccountAdopter />}
             />
             <Route path='/createAccountCat' element={<CreateAccountCat />} />
-            <Route path='/adopterCardsPage' element={<AdopterCardsPage />} />
+            <Route path='/AdopterCardsPage' element={<AdopterCardsPage />} />
             <Route path='/CatsCardsPage' element={<CatCardsPage />} />
           </Routes>
         </div>

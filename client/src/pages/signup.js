@@ -36,7 +36,8 @@ const Signup = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='signup' onSubmit={handleSubmit}>
+      <h3>Sign up</h3>
       <input type='email' placeholder='email' ref={emailRef} />
       <input type='password' placeholder='password' ref={passwordRef} />
       <select ref={profileTypeRef}>

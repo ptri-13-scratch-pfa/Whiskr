@@ -1,35 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import axios from 'axios';
 
-const AdopterDashboard = async () => {
-//GET request to /api/cats
-  const characters = axios.get('/api/cats')
-// Mock data:
-  // const characters = [
-  //   {
-  //     name: 'Doge Cat',
-  //     url: 'https://i.imgur.com/7F5mhPp.gif',
-  //   },
-  //   {
-  //     name: 'River',
-  //     url: 'https://i.imgur.com/q350qch.jpeg',
-  //   },
-  //   {
-  //     name: 'Stretch',
-  //     url: 'https://i.imgur.com/Ovrl1BE.jpeg',
-  //   },
-  //   {
-  //     name: 'Kitty',
-  //     url: 'https://i.imgur.com/rRdeX5I.jpeg',
-  //   },
-  //   {
-  //     name: 'Echo',
-  //     url: 'https://i.imgur.com/Cmp5tNf.jpeg',
-  //   },
-  // ];
-
+const AdopterDashboard = () => {
+//GET request to /api/adopters
+  const [characters, setCharacters] = useState([])
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction, nameToDelete) => {
@@ -40,6 +16,21 @@ const AdopterDashboard = async () => {
   const outOfFrame = name => {
     console.log(name + ' left the screen!');
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/api/adopters');
+        setCharacters(response.data);
+        console.log('characters:', response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
 
   return (
     <div className='adopter-dashboard'>
@@ -53,7 +44,7 @@ const AdopterDashboard = async () => {
               onCardLeftScreen={() => outOfFrame(character.name)}
             >
               <div
-                style={{ backgroundImage: 'url(' + character.url + ')' }}
+                style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
                 className='card'
               >
                 <h3>{character.name}</h3>

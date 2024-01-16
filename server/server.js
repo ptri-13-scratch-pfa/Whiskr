@@ -33,7 +33,7 @@ app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
 });
 
-app.use('/api', apiRoute)
+app.use('/api', apiRoute);
 
 app.use('/signup', signupRoute);
 app.use('/login', loginRoute);
