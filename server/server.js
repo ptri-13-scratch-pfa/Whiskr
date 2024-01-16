@@ -1,12 +1,13 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config({ path: '../.env' });
+
 const loginRoute = require('./routes/loginRoutes');
 const signupRoute = require('./routes/signupRoutes.js');
 const apiRoute = require('./routes/apiRoutes.js');
 
-dotenv.config();
+// dotenv.config();
 const app = express();
 const PORT = process.env.SERV_PORT;
 

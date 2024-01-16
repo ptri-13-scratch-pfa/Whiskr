@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
+const dotenv = require('dotenv').config({ path: '.../.env' });
 
 const salt_factor = 10;
 
