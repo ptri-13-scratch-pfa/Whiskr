@@ -29,10 +29,10 @@ const Login = () => {
 
       if (user) {
         // Redirect based on profileType
-        if (user.profileType === 'Adopter') {
-          navigate('/AdopterCardsPage'); // redirect to '/AdopterCardsPage' page
-        } else if (user.profileType === 'Cat') {
-          navigate('/CatCardsPage'); // redirect to '/CatCardsPage' page
+        if (user.data.profileType === 'Adopter') {
+          navigate('/CatsCardsPage'); // redirect to '/AdopterCardsPage' page
+        } else if (user.data.profileType === 'Cat') {
+          navigate('/AdoptersCardsPage'); // redirect to '/CatCardsPage' page
         }
       } else {
         alert('Email or Password is not correct!');
