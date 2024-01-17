@@ -17,7 +17,7 @@ userController.createUser = async (req, res, next) => {
 
     // save user in db and send response
     const registeredUser = await newUser.save();
-    res.locals._id = registeredUser._id;
+    res.locals.ssid = registeredUser._id;
     return next();
   } catch (err) {
     return next('Error in UserController.createUser: ' + JSON.stringify(err));

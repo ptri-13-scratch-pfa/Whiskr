@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
-const dotenv = require('dotenv').config({ path: '.../.env' });
+const dotenv = require("dotenv").config({ path: ".../.env" });
 
 const salt_factor = 10;
 
@@ -24,7 +24,7 @@ const someSchema = new Schema({
 });
 */
 
-console.log('>>> salt_factor: ', salt_factor);
+console.log(">>> salt_factor: ", salt_factor);
 
 const profileSchema = new Schema({
   name: String,
@@ -41,6 +41,7 @@ const userSchema = new Schema({
     type: String,
     unique: true,
     required: true,
+    lowercase: true,
   },
   password: {
     type: String,
@@ -52,14 +53,14 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function (next) {
   const user = this;
-  console.log('>>> user password before converting: ', user);
+  console.log(">>> user password before converting: ", user);
 
   bcrypt.hash(user.password, salt_factor, function (err, hash) {
     if (err) return next(err);
     user.password = hash;
-    console.log('>>> user password in hash: ', user.password);
+    console.log(">>> user password in hash: ", user.password);
     return next();
   });
 });
@@ -85,6 +86,14 @@ const adopterSchema = new Schema({
     type: String,
     required: true,
   },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+  },
+  cat_id: {
+    type: Schema.Types.ObjectId,
+    ref: "cats",
+  },
 });
 
 const catSchema = new Schema({
@@ -108,11 +117,19 @@ const catSchema = new Schema({
     type: String,
     required: true,
   },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+  },
+  adopter_id: {
+    type: Schema.Types.ObjectId,
+    ref: "adopters",
+  },
 });
 
-const Profile = mongoose.model('profile', profileSchema);
-const User = mongoose.model('User', userSchema);
-const Adopter = mongoose.model('Adopter', adopterSchema);
-const Cat = mongoose.model('Cat', catSchema);
+const Profile = mongoose.model("profile", profileSchema);
+const User = mongoose.model("User", userSchema);
+const Adopter = mongoose.model("Adopter", adopterSchema);
+const Cat = mongoose.model("Cat", catSchema);
 
 module.exports = { Profile, User, Adopter, Cat };
