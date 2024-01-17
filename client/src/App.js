@@ -5,7 +5,7 @@ import './stylesheet.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Signup from './pages/signup';
 import CreateAccountAdopter from './pages/CreateAccountAdopter';
 import CreateAccountCat from './pages/CreateAccountCat';
 import About from './pages/About';
