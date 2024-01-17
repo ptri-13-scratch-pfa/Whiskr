@@ -26,6 +26,7 @@ loginControllers.verifyUser = async (req, res, next) => {
       if (result) {
         console.log('Email and password matches')
         res.locals.users = { email, profileType };
+        // res.cookie('id', registered._id.toString());
         return next();
       } else {
         return next({
@@ -40,5 +41,13 @@ loginControllers.verifyUser = async (req, res, next) => {
     }
   }
 
+// loginControllers.setCookie = async (req, res, next) => {
+//     const email = req.body.email;
+//     const user = await userModel.User.findOne({ email });
+//     userID = user._id.toString();
+//     console.log('Setting cookie userID:', userID);
+//     res.cookie('id', userID);
+//     return next();
+// }
 
 module.exports = loginControllers;
