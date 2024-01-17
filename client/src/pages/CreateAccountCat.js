@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-
+import axios from 'axios';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateAccountCat = () => {
   const catNameRef = useRef();
@@ -10,6 +12,7 @@ const CreateAccountCat = () => {
   const catAgeRef = useRef();
   const aboutMeRef = useRef();
   const profilePicRef = useRef();
+  const navigate = useNavigate()
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -18,14 +21,18 @@ const CreateAccountCat = () => {
       breed: catBreedRef.current.value,
       age: catAgeRef.current.value,
       aboutMe: aboutMeRef.current.value,
-      profilePic: profilePicRef.current.value,
+      imageUrl: 'https://i.imgur.com/7F5mhPp.gif'
     };
     console.log(newCat);
-    // try {
-    //   await axios.post('/users/adopters/register', newAdopter);
-    // } catch(err) {
-    //   console.log(err);
-    // }
+    try {
+
+      const catResponse = await axios.post('/signup/cat', newCat);
+      if(catResponse){
+        navigate('/AdopterCardsPage')
+      }
+    } catch(err) {
+      console.log(err);
+    }
   };
 
   return (

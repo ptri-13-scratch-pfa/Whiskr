@@ -5,11 +5,12 @@ import './stylesheet.css';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Signup from './pages/signup';
 import CreateAccountAdopter from './pages/CreateAccountAdopter';
 import CreateAccountCat from './pages/CreateAccountCat';
 import About from './pages/About';
 import AdopterCardsPage from './pages/AdopterCardsPage';
+import CatCardsPage from './pages/CatsCardsPage';
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
               element={<CreateAccountAdopter />}
             />
             <Route path='/createAccountCat' element={<CreateAccountCat />} />
-            <Route path='/adopterCardsPage' element={<AdopterCardsPage />} />
+            <Route path='/AdopterCardsPage' element={<AdopterCardsPage />} />
+            <Route path='/CatsCardsPage' element={<CatCardsPage />} />
           </Routes>
         </div>
       </BrowserRouter>

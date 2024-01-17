@@ -7,7 +7,7 @@ router.post('/', userController.createUser, (req, res) => {
 });
 
 router.post('/adopter', userController.createAdopter, (req, res) => {
-  return res.status(200);
+  return res.status(200).json(true);
 });
 
 router.post('/cat', userController.createCat, (req, res) => {

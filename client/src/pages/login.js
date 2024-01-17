@@ -25,6 +25,8 @@ const Login = () => {
       //   console.log('userToFind: ', userCredentials);
       //   console.log('user found in database: ', user);
 
+      console.log('user:', user);
+
       if (user) {
         // Redirect based on profileType
         if (user.profileType === 'Adopter') {
@@ -42,13 +44,18 @@ const Login = () => {
 
   return (
     <form className='login' onSubmit={handleSubmit}>
-      <h3>Login</h3>
-
-      <label>Email:</label>
-      <input type='email' ref={emailRef} />
-      <label>Password:</label>
-      <input type='password' ref={passwordRef} />
-      <button>Log in</button>
+      <div>
+        <h3>Login</h3>
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type='email' ref={emailRef} />
+        <label>Password:</label>
+        <input type='password' ref={passwordRef} />
+      </div>
+      <div>
+        <button>Log in</button>
+      </div>
     </form>
   );
 };
