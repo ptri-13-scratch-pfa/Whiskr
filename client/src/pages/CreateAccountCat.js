@@ -5,32 +5,35 @@ import axios from 'axios';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const CreateAccountCat = () => {
+  const emailRef = useRef();
   const catNameRef = useRef();
   const catBreedRef = useRef();
   const catAgeRef = useRef();
   const aboutMeRef = useRef();
   const profilePicRef = useRef();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     const newCat = {
+      email: emailRef.current.value,
       name: catNameRef.current.value,
       breed: catBreedRef.current.value,
       age: catAgeRef.current.value,
       aboutMe: aboutMeRef.current.value,
-      imageUrl: 'https://i.imgur.com/7F5mhPp.gif'
+      imageUrl: 'https://i.imgur.com/7F5mhPp.gif',
     };
-    console.log(newCat);
-    try {
 
-      const catResponse = await axios.post('/signup/cat', newCat);
-      if(catResponse){
-        navigate('/AdopterCardsPage')
+    try {
+      const catResponse = await axios.post('/login/createCatProfile', newCat);
+
+      if (catResponse) {
+        console.log('* New cat profile created, _id: ', catResponse.data);
+        navigate('/AdopterCardsPage');
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -38,6 +41,8 @@ const CreateAccountCat = () => {
   return (
     <form className='signup' onSubmit={handleSubmit}>
       <h3>Create a profile for your cat!</h3>
+      <label>Email:</label>
+      <input type='email' placeholder='Email' ref={emailRef} />
       <label>Name:</label>
       <input type='name' placeholder='Kitty name' ref={catNameRef} />
       <label>Type of cat:</label>

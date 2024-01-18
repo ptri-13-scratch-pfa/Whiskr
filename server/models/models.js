@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
-const dotenv = require('dotenv').config({ path: '.../.env' });
+// const dotenv = require('dotenv').config({ path: '.../.env' });
+const dotenv = require('dotenv');
 
-const salt_factor = 10;
+dotenv.config();
+
+const SALT_FACTOR = Number(process.env.SALT_WORK_FACTOR);
+console.log(
+  `* Checking properties from '.env' file: \n  - SALT_FACTOR: ${SALT_FACTOR}`
+);
 
 /* Create schema below
 const someSchema = new Schema({
@@ -23,8 +29,6 @@ const someSchema = new Schema({
   }
 });
 */
-
-console.log('>>> salt_factor: ', salt_factor);
 
 const profileSchema = new Schema({
   name: String,
@@ -53,18 +57,24 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save', function (next) {
+  console.log('* Hashing password before adding user to db...');
   const user = this;
-  console.log('>>> user password before converting: ', user);
+  console.log('  - User password: ', user.password);
 
-  bcrypt.hash(user.password, salt_factor, function (err, hash) {
+  bcrypt.hash(user.password, SALT_FACTOR, function (err, hash) {
     if (err) return next(err);
     user.password = hash;
-    console.log('>>> user password in hash: ', user.password);
+    console.log('  - Hashed user password: ', user.password);
     return next();
   });
 });
 
 const adopterSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -88,6 +98,11 @@ const adopterSchema = new Schema({
 });
 
 const catSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   name: {
     type: String,
     required: true,

@@ -103,6 +103,19 @@ code {
   border-radius: 5px;
 }
 
+/* Sign Up Page */
+.signup-elements {
+  display: flex; /* Use flex display to control the layout */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  height: 400px; /* Set a fixed height for signup-elements */
+  width: 100%; /* Set the width to 100% to fill the parent container */
+  margin: auto; /* Center the element horizontally if needed */
+  padding: 16px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+}
+
 .signup {
   display: flex;
   flex-direction: column;
@@ -116,6 +129,58 @@ code {
     width: 300px;
     padding: 10px;
   }
+}
+
+/* Log In Page */
+.login-elements {
+  display: flex; /* Use flex display to control the layout */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  height: 400px; /* Set a fixed height for signup-elements */
+  width: 100%; /* Set the width to 100% to fill the parent container */
+  margin: auto; /* Center the element horizontally if needed */
+  padding: 16px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 5px;
+  Button {
+    size: large;
+    width: 300px;
+    padding: 10px;
+  }
+}
+
+/* Form Elements - Server Response Text */
+.response-text {
+  /* Positioning */
+  position: absolute;
+  top: 550px;
+  /* Styling */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: rgb(0, 199, 53);
+  background: black;
+}
+
+/* Form Elements - Server Error Text */
+.error-text {
+  /* Positioning */
+  position: absolute;
+  top: 550px;
+  /* Styling */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: rgb(255, 0, 0);
+  background: black;
 }
 
 label {

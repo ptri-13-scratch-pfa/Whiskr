@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
 
@@ -7,56 +7,82 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  // Response/error from server
+  const [res, setRes] = useState(null);
+  const [err, setErr] = useState(null);
+
   const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
 
-    //check that the email and password are in the database under a user record
     const userCredentials = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      profileType: 'Adopter',
     };
 
-    // Make GET request to Atlas DB to add new user
+    // Make POST request to Atlas DB to add new user
     try {
-      const user = await axios.post('/login', userCredentials);
-      //   console.log('userToFind: ', userCredentials);
-      //   console.log('user found in database: ', user);
+      const loginRes = await axios.post('/login', userCredentials);
 
-      console.log('user:', user);
+      console.log('* Login response from server: ', loginRes);
+      setRes(`User has created an Adopter or Cat Profile: ${loginRes.data}.`);
+      setErr(null);
 
-      if (user) {
-        // Redirect based on profileType
-        if (user.data.profileType === 'Adopter') {
-          navigate('/CatsCardsPage'); // redirect to '/AdopterCardsPage' page
-        } else if (user.data.profileType === 'Cat') {
-          navigate('/AdoptersCardsPage'); // redirect to '/CatCardsPage' page
-        }
+      // If the user has not created an Adopter or Cat profile yet...
+      if (!loginRes.data) {
+        console.log('* User has not created an adopter or cat profile yet');
+        // Navigate to the create Adopter or create Cat Profile page depending on the user's selection when they registered their account
+        const userAccountType = await axios.post(
+          '/login/getAccountType',
+          userCredentials
+        );
+        console.log('* User account type: ', userAccountType.data);
+        if (userAccountType.data === 'Adopter')
+          navigate('/CreateAccountAdopter');
+        else if (userAccountType.data === 'Cat') navigate('/CreateAccountCat');
       } else {
-        alert('Email or Password is not correct!');
+        console.log('* User already created an adopter or cat profile');
+        const userAccountType = await axios.post(
+          '/login/getAccountType',
+          userCredentials
+        );
+        console.log('* User account type: ', userAccountType.data);
+        if (userAccountType.data === 'Adopter') navigate('/CatsCardsPage');
+        else if (userAccountType.data === 'Cat') navigate('/AdopterCardsPage');
       }
+      // if (user) {
+      //   // Redirect based on profileType
+      //   if (user.data.profileType === 'Adopter') {
+      //     navigate('/CatsCardsPage'); // redirect to '/AdopterCardsPage' page
+      //   } else if (user.data.profileType === 'Cat') {
+      //     navigate('/AdoptersCardsPage'); // redirect to '/CatCardsPage' page
+      //   }
+      // } else {
+      //   alert('Email or Password is not correct!');
+      // }
     } catch (err) {
-      console.log(err);
+      console.log('* Error from server: ', err.response.data);
+      setRes(null);
+      setErr(err.response.data);
     }
   };
 
   return (
-    <form className='login' onSubmit={handleSubmit}>
-      <div>
-        <h3>Login</h3>
-      </div>
-      <div>
+    <div className='login-elements'>
+      <form className='login' onSubmit={handleSubmit}>
+        <h3>Log In</h3>
+
         <label>Email:</label>
         <input type='email' ref={emailRef} />
         <label>Password:</label>
         <input type='password' ref={passwordRef} />
-      </div>
-      <div>
-        <button>Log in</button>
-      </div>
-    </form>
+
+        <button type='submit'>Log in</button>
+      </form>
+      {res && <p className='response-text'>{JSON.stringify(res)}</p>}
+      {err && <p className='error-text'>{err}</p>}
+    </div>
   );
 };
 
