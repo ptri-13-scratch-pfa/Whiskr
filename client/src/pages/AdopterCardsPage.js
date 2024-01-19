@@ -1,11 +1,12 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import TinderCard from 'react-tinder-card';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import TinderCard from 'react-tinder-card';
+import MatchesDashboard from '../components/MatchesDashboard';
+
 const AdopterDashboard = () => {
-//GET request to /api/adopters
-  const [characters, setCharacters] = useState([])
+  //GET request to /api/adopters
+  const [characters, setCharacters] = useState([]);
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction, nameToDelete) => {
@@ -29,8 +30,7 @@ const AdopterDashboard = () => {
     };
 
     fetchData();
-  }, []); 
-
+  }, []);
 
   return (
     <div className='adopter-dashboard'>
@@ -53,6 +53,7 @@ const AdopterDashboard = () => {
           ))}
         </div>
       </div>
+      <MatchesDashboard className='matches-dashboard' />
     </div>
   );
 };

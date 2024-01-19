@@ -51,16 +51,6 @@ const Login = () => {
         if (userAccountType.data === 'Adopter') navigate('/CatsCardsPage');
         else if (userAccountType.data === 'Cat') navigate('/AdopterCardsPage');
       }
-      // if (user) {
-      //   // Redirect based on profileType
-      //   if (user.data.profileType === 'Adopter') {
-      //     navigate('/CatsCardsPage'); // redirect to '/AdopterCardsPage' page
-      //   } else if (user.data.profileType === 'Cat') {
-      //     navigate('/AdoptersCardsPage'); // redirect to '/CatCardsPage' page
-      //   }
-      // } else {
-      //   alert('Email or Password is not correct!');
-      // }
     } catch (err) {
       console.log('* Error from server: ', err.response.data);
       setRes(null);
@@ -73,10 +63,8 @@ const Login = () => {
       <form className='login' onSubmit={handleSubmit}>
         <h3>Log In</h3>
 
-        <label>Email:</label>
-        <input type='email' ref={emailRef} />
-        <label>Password:</label>
-        <input type='password' ref={passwordRef} />
+        <input type='email' placeholder='email' ref={emailRef} />
+        <input type='password' placeholder='password' ref={passwordRef} />
 
         <button type='submit'>Log in</button>
       </form>

@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import axios from 'axios';
+import MatchesTab from './MatchesTab';
+import MessagesTab from './MessagesTab';
 
 const MatchesDashboard = () => {
-  // Mock data
-  const matches = [
-    { name: 'catname1', imageUrl: 'https://i.imgur.com/rRdeX5I.jpeg' },
-    { name: 'peanut', imageUrl: 'https://i.imgur.com/rRdeX5I.jpeg' },
-    { name: 'Lyca', imageUrl: 'https://i.imgur.com/rRdeX5I.jpeg' },
-    { name: 'Hugh', imageUrl: 'https://i.imgur.com/rRdeX5I.jpeg' },
-  ];
+  // track state of matches tab and messages tab
+  const [showMatchesTab, setShowMatchesTab] = useState(true);
+  const [showMessagesTab, setShowMessagesTab] = useState(false);
 
   return (
     <div className='matches-dashboard'>
-      <div className='matches-tab'>
-        <h1>Matches</h1>
-        {matches.map(match => (
-          <>
-            <p>{match.name}</p>
-            <img src={match.imageUrl}></img>
-          </>
-        ))}
+      <div className='match-msg-buttons'>
+        <button
+          onClick={() => {
+            setShowMatchesTab(true);
+            setShowMessagesTab(false);
+          }}
+        >
+          Matches
+        </button>
+        <button
+          onClick={() => {
+            setShowMessagesTab(true);
+            setShowMatchesTab(false);
+          }}
+        >
+          Messages
+        </button>
       </div>
-      <div className='messages-tab'>
-        <h1>Messages</h1>
-      </div>
+      {showMatchesTab && <MatchesTab />}
+      {showMessagesTab && <MessagesTab />}
     </div>
   );
 };

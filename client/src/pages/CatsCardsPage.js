@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import TinderCard from 'react-tinder-card';
 import axios from 'axios';
+
+import TinderCard from 'react-tinder-card';
 import MatchesDashboard from '../components/MatchesDashboard';
 
 const CatDashboard = () => {
@@ -52,7 +53,7 @@ const CatDashboard = () => {
           ))}
         </div>
       </div>
-      <MatchesDashboard />
+      <MatchesDashboard className='matches-dashboard' />
     </div>
   );
 };
