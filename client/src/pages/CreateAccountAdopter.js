@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-// import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
 import axios from 'axios';
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CreateAccountAdopter = () => {
+  const emailRef = useRef();
   const nameRef = useRef();
   const aboutMeRef = useRef();
   // const imageUrl = useRef();
@@ -16,21 +16,33 @@ const CreateAccountAdopter = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     const newAdopter = {
+      email: emailRef.current.value,
       name: nameRef.current.value,
       aboutMe: aboutMeRef.current.value,
       // profilePic: profilePicRef.current.value,
-      imageUrl: 'https://i.imgur.com/7F5mhPp.gif',
+      imageUrl: 'https://i.imgur.com/OckVkRo.jpeg',
       profession: professionRef.current.value,
-      experience: experienceRef.current.value
+      experience: experienceRef.current.value,
     };
-    console.log(newAdopter);
+
+    console.log('* Profile to be added to db: ', newAdopter);
+
     try {
-      const adopterResponse = await axios.post('/signup/adopter', newAdopter);
-      if(adopterResponse){
-        navigate('/CatsCardsPage')
+      const adopterResponse = await axios.post(
+        '/login/createAdopterProfile',
+        newAdopter
+      );
+
+      if (adopterResponse) {
+        console.log(
+          '* New adopter profile created, _id: ',
+          adopterResponse.data
+        );
+        navigate('/CatsCardsPage');
       }
-    } catch(err) {
+    } catch (err) {
       console.log(err);
     }
   };
@@ -39,6 +51,8 @@ const CreateAccountAdopter = () => {
     <div>
       <h3>Create your adopter profile!</h3>
       <form className='signup' onSubmit={handleSubmit}>
+        <label>Email: </label>
+        <input type='email' placeholder='email' ref={emailRef} />
         <label>Name: </label>
         <input type='text' placeholder='full name' ref={nameRef} />
         <label>About Me: </label>
