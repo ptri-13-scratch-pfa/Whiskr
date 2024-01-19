@@ -1,7 +1,8 @@
 const Profile = require('../models/models.js');
+const bcrypt = require("bcryptjs");
+
 const loginControllers = {};
 
-const bcrypt = require('bcryptjs');
 
 // Log in user
 loginControllers.verifyUser = async (req, res, next) => {
@@ -40,6 +41,7 @@ loginControllers.verifyUser = async (req, res, next) => {
       res.locals.userEmail = foundUser.email;
       res.locals.profileType = foundUser.profileType;
       res.locals.userid = foundUser._id
+      console.log(">>> userid from loginController.verifyUser: ", foundUser._id);
       return next();
     } else {
       const invalidPasswordErr = {
@@ -96,7 +98,7 @@ loginControllers.verifyAdopterOrCat = async (req, res, next) => {
     }
   } catch (err) {
     return next(
-      'Error in loginController.verifyAdopterOrCat: ',
+      'Error in loginController.verifyAdopterOrCat: '
       +JSON.stringify(err)
     );
   }

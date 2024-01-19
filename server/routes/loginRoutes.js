@@ -1,13 +1,13 @@
 const router = require("express").Router();
 const path = require("path");
 const loginControllers = require("../controllers/loginControllers");
-const cookieController = require("../controllers/cookieController");
 const sessionController = require("../controllers/sessionController");
+const authControllers = require("../controllers/authControllers");
 
 router.post("/",
   loginControllers.verifyUser,
+  authControllers.generateToken,
   loginControllers.verifyAdopterOrCat,
-  cookieController.setSSIDCookie,
   sessionController.isLoggedIn,
   (req, res) => {
     res.json(res.locals.hasAdopterOrCatProfile);
