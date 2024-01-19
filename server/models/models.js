@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
-// const dotenv = require('dotenv').config({ path: '.../.env' });
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -10,35 +9,6 @@ const SALT_FACTOR = Number(process.env.SALT_WORK_FACTOR);
 console.log(
   `* Checking properties from '.env' file: \n  - SALT_FACTOR: ${SALT_FACTOR}`
 );
-
-/* Create schema below
-const someSchema = new Schema({
-  name: String,
-  classification: String,
-  average_height: String,
-  average_lifespan: String,
-  hair_colors: String,
-  skin_colors: String,
-  eye_colors: String,
-  language: String,
-  homeworld: String,
-  homeworld_id: {
-    // type of ObjectId makes this behave like a foreign key referencing the 'planet' collection
-    type: Schema.Types.ObjectId,
-    ref: 'planet'
-  }
-});
-*/
-
-const profileSchema = new Schema({
-  name: String,
-  aboutMe: String,
-  age: Number,
-  role: String,
-  pic1: String,
-  pic2: String,
-  pic3: String,
-});
 
 const userSchema = new Schema({
   email: {
@@ -125,9 +95,8 @@ const catSchema = new Schema({
   },
 });
 
-const Profile = mongoose.model('profile', profileSchema);
 const User = mongoose.model('User', userSchema);
 const Adopter = mongoose.model('Adopter', adopterSchema);
 const Cat = mongoose.model('Cat', catSchema);
 
-module.exports = { Profile, User, Adopter, Cat };
+module.exports = { User, Adopter, Cat };

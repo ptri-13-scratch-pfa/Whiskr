@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
-// const dotenv = require('dotenv').config({ path: '../.env' }); // NOTE: .env file was not being read so separated into two lines
 const dotenv = require('dotenv'); // NOTE Line 1
 
 const loginRoute = require('./routes/loginRoutes');
@@ -19,7 +18,6 @@ console.log(
 );
 
 app.use(express.json()); // enables server to parse JSON data sent in the body of reqs
-// app.use(express.urlencoded({ extended: false })); // NOTE Not needed - express.urlencoded middleware included under the hood when using express.json() in Express versions 4.16.0+
 // app.use(express.static(path.resolve(__dirname, '../build'))); // NOTE May not be needed - during development w/ webpack, you can rely on webpack dev server for serving static assets (this line becomes more relevant when deploying to a production server where you want Express to handle static file serving)
 
 // Connect to Mongo DB
