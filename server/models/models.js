@@ -1,40 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
-const dotenv = require('dotenv').config({ path: '.../.env' });
+const dotenv = require('dotenv');
 
-const salt_factor = 10;
+dotenv.config();
 
-/* Create schema below
-const someSchema = new Schema({
-  name: String,
-  classification: String,
-  average_height: String,
-  average_lifespan: String,
-  hair_colors: String,
-  skin_colors: String,
-  eye_colors: String,
-  language: String,
-  homeworld: String,
-  homeworld_id: {
-    // type of ObjectId makes this behave like a foreign key referencing the 'planet' collection
-    type: Schema.Types.ObjectId,
-    ref: 'planet'
-  }
-});
-*/
-
-console.log('>>> salt_factor: ', salt_factor);
-
-const profileSchema = new Schema({
-  name: String,
-  aboutMe: String,
-  age: Number,
-  role: String,
-  pic1: String,
-  pic2: String,
-  pic3: String,
-});
+const SALT_FACTOR = Number(process.env.SALT_WORK_FACTOR);
+console.log(
+  `* Checking properties from '.env' file: \n  - SALT_FACTOR: ${SALT_FACTOR}`
+);
 
 const userSchema = new Schema({
   email: {
@@ -53,18 +27,24 @@ const userSchema = new Schema({
 });
 
 userSchema.pre('save', function (next) {
+  console.log('* Hashing password before adding user to db...');
   const user = this;
-  console.log('>>> user password before converting: ', user);
+  console.log('  - User password: ', user.password);
 
-  bcrypt.hash(user.password, salt_factor, function (err, hash) {
+  bcrypt.hash(user.password, SALT_FACTOR, function (err, hash) {
     if (err) return next(err);
     user.password = hash;
-    console.log('>>> user password in hash: ', user.password);
+    console.log('  - Hashed user password: ', user.password);
     return next();
   });
 });
 
 const adopterSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -88,6 +68,11 @@ const adopterSchema = new Schema({
 });
 
 const catSchema = new Schema({
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -110,9 +95,8 @@ const catSchema = new Schema({
   },
 });
 
-const Profile = mongoose.model('profile', profileSchema);
 const User = mongoose.model('User', userSchema);
 const Adopter = mongoose.model('Adopter', adopterSchema);
 const Cat = mongoose.model('Cat', catSchema);
 
-module.exports = { Profile, User, Adopter, Cat };
+module.exports = { User, Adopter, Cat };
