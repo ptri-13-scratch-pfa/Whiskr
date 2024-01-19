@@ -25,7 +25,7 @@ loginControllers.verifyUser = async (req, res, next) => {
         if (result) {
           const userid_indatabase = await userModel.User.findOne({email});
           console.log(">>> Email and password matches", userid_indatabase);
-          res.locals.userid = userid_indatabase._id;
+          res.locals.userid = String(userid_indatabase._id);
           res.locals.users = { email, profileType };
           return next();
         } else {

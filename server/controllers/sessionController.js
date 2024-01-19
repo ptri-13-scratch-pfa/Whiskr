@@ -23,7 +23,6 @@ sessionController.isLoggedIn = async (req, res, next) => {
     }    
 }
 
-
 sessionController.startSession = (req, res, next) => {
     console.log(res.locals.ssid);
     const currSession = new Session( {cookieId: res.locals.ssid });
@@ -36,7 +35,5 @@ sessionController.startSession = (req, res, next) => {
         return next("Error in sessionController.startSession: " + JSON.stringify(err));
     })
 }
-
-
 
 module.exports = sessionController;

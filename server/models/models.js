@@ -90,10 +90,10 @@ const adopterSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users",
   },
-  cat_id: {
-    type: Schema.Types.ObjectId,
-    ref: "cats",
-  },
+  // cat_id: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "cats",
+  // },
 });
 
 const catSchema = new Schema({
