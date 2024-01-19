@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv'); // NOTE Line 1
+const cookieParser = require('cookie-parser');
 
 const loginRoute = require('./routes/loginRoutes');
 const signupRoute = require('./routes/signupRoutes.js');
@@ -12,6 +13,11 @@ const app = express();
 
 // Configs
 const PORT = process.env.SERV_PORT;
+
+app.use(express.json());
+// app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(cookieParser());
+
 const MONGO_URI = process.env.MONGO_URI;
 console.log(
   `* Checking properties from '.env' file: \n  - PORT: ${PORT}\n  - MONGO_URI: ${MONGO_URI}`
