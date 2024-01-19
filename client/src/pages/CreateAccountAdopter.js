@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, TextField, LinearProgress } from '@mui/material';
 // import axios from 'axios'; // NOTE: JS library used to make HTTP requests from a browser; used here to fetch data (pins) from Atlas db
 import axios from 'axios';
 import { useState, useRef } from 'react';
@@ -35,7 +35,68 @@ const CreateAccountAdopter = () => {
     }
   };
 
+
+  const [file, setFile] = useState()
+
+  function handleChange(event) {
+    console.log('upload event change:')
+    setFile(event.target.files[0])
+    console.log('event.target.files:', event.target.files)
+  }
+
+  const axiosErr = (error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log('error in response...')
+      console.log('data', error.response.data);
+      console.log('status', error.response.status);
+      console.log('headers', error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log('error in request')
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error message:', error.message);
+    }
+    console.log(error.config);
+  }
+
+  const handleFileUpload = async (event) => {
+    event.preventDefault();
+    console.log('handlefileupload activated')
+    // const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        'Authorization': 'Bearer 68b2fb34065d82a82a822fa697d18c3caf05ac83'
+      },
+    };
+    try {
+      const upload = await axios.post('https://api.imgur.com/3/image', formData, config)
+      console.log('upload: ', upload)
+    } catch (err) {
+      axiosErr(err)
+      }
+    }
+
+
+    // const [uploadProgress, setUploadProgress] = React.useState(0);
+
   return (
+    <>
+    <div>
+      <form onSubmit={handleFileUpload}>
+          <label>Upload Photos</label>
+          <input type="file" onChange={handleChange}/>
+          <button type='submit'>Upload</button>
+        </form>
+    </div>
     <div>
       <h3>Create your adopter profile!</h3>
       <form className='signup' onSubmit={handleSubmit}>
@@ -45,6 +106,7 @@ const CreateAccountAdopter = () => {
         <input type='about me' placeholder='about me' ref={aboutMeRef} />
         {/* <label>Add images here: </label>
         <input type='file' placeholder='image url' ref={profilePicRef} /> */}
+
         <label>Profession: </label>
         <input type='profession' placeholder='profession' ref={professionRef} />
         <label>Experience w/ Cats: </label>
@@ -59,6 +121,8 @@ const CreateAccountAdopter = () => {
         {/* </Link> */}
       </form>
     </div>
+
+    </>
   );
 };
 
