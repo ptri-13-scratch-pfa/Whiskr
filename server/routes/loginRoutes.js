@@ -1,11 +1,10 @@
-const router = require('express').Router();
-const path = require('path');
-const loginControllers = require('../controllers/loginControllers');
+const router = require("express").Router();
+const path = require("path");
+const loginControllers = require("../controllers/loginControllers");
 const cookieController = require("../controllers/cookieController");
 const sessionController = require("../controllers/sessionController");
 
-router.post(
-  "/",
+router.post("/",
   loginControllers.verifyUser,
   loginControllers.verifyAdopterOrCat,
   cookieController.setSSIDCookie,

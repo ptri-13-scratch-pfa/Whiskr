@@ -39,6 +39,7 @@ loginControllers.verifyUser = async (req, res, next) => {
       // Store email and account type to be passed on
       res.locals.userEmail = foundUser.email;
       res.locals.profileType = foundUser.profileType;
+      res.locals.userid = foundUser._id
       return next();
     } else {
       const invalidPasswordErr = {
