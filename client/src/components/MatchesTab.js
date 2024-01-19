@@ -18,10 +18,10 @@ const MatchesTab = () => {
   return (
     <div className='matches-tab'>
       {matches.map(match => (
-        <>
+        <div className='matches'>
           <p>{match.name}</p>
           <img src={match.imageUrl}></img>
-        </>
+        </div>
       ))}
     </div>
   );

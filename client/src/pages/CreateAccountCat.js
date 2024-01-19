@@ -39,7 +39,7 @@ const CreateAccountCat = () => {
   };
 
   return (
-    <form className='signup' onSubmit={handleSubmit}>
+    <form className='create-profile-page' onSubmit={handleSubmit}>
       <h3>Create a profile for your cat!</h3>
       <label>Email:</label>
       <input type='email' placeholder='Email' ref={emailRef} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import TinderCard from 'react-tinder-card';
-import MatchesDashboard from '../components/MatchesDashboard';
+import SideBar from '../components/SideBar.js';
 
 const CatDashboard = () => {
   const [characters, setCharacters] = useState([]);
@@ -33,27 +33,26 @@ const CatDashboard = () => {
   }, []); // Empty dependency array ensures useEffect runs once after initial render
 
   return (
-    <div className='adopter-dashboard'>
-      <div className='swiper-container'>
-        <div className='card-container'>
-          {characters.map(character => (
-            <TinderCard
-              className='swipe'
-              key={character.name}
-              onSwipe={dir => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}
+    <div className='cards-page'>
+      <div className='card-container'>
+        {characters.map(character => (
+          <TinderCard
+            className='swipe'
+            key={character.name}
+            onSwipe={dir => swiped(dir, character.name)}
+            onCardLeftScreen={() => outOfFrame(character.name)}
+          >
+            <div
+              style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
+              className='card'
             >
-              <div
-                style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
-                className='card'
-              >
-                <h3>{character.name}</h3>
-              </div>
-            </TinderCard>
-          ))}
-        </div>
+              <h3>{character.name}</h3>
+            </div>
+          </TinderCard>
+        ))}
       </div>
-      <MatchesDashboard className='matches-dashboard' />
+
+      <SideBar className='side-bar' />
     </div>
   );
 };

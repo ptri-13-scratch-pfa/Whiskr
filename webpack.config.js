@@ -52,7 +52,7 @@ module.exports = {
     port: process.env.DEV_PORT,
     proxy: {
       '/': {
-        target: `http://localhost:${process.env.SERV_PORT}`,
+        target: `http://localhost:3000`,
       },
     },
   },

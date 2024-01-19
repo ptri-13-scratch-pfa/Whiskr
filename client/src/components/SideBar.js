@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import MatchesTab from './MatchesTab';
 import MessagesTab from './MessagesTab';
 
-const MatchesDashboard = () => {
+const SideBar = () => {
   // track state of matches tab and messages tab
   const [showMatchesTab, setShowMatchesTab] = useState(true);
   const [showMessagesTab, setShowMessagesTab] = useState(false);
 
   return (
-    <div className='matches-dashboard'>
+    <div className='side-bar'>
       <div className='match-msg-buttons'>
         <button
           onClick={() => {
@@ -34,4 +34,4 @@ const MatchesDashboard = () => {
   );
 };
 
-export default MatchesDashboard;
+export default SideBar;
