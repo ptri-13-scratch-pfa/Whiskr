@@ -72,35 +72,39 @@ code {
 
 .slogan-signup-login-container {
   display: flex;
-  flex-direction: row;
-  margin-top: 300px;
+  flex-direction: column;
+  margin-top: 20%;
   align-items: center;
 }
 
-.signup-login-container {
+.signup-login-buttons {
+  button {
+    height: 50px;
+    width: 170px;
+    font-size: 21px;
+    border-radius: 30px;
+
+    /* Gradient Background */
+    background: linear-gradient(to bottom, #4cb8b8, #0184b8);
+    /* Text Color */
+    color: #fff;
+  }
+  button:hover {
+    background: linear-gradient(
+      to bottom,
+      #307676,
+      #005070
+    ); /* Adjust colors as needed */
+  }
+}
+
+/* Sign Up Page */
+.signup-elements {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
-
-.signup-button {
-  display: flex;
-  flex-direction: row;
-  margin: 20px;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
-  border-radius: 5px;
-}
-
-.login-button {
-  display: flex;
-  flex-direction: row;
-  margin: 20px;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
-  border-radius: 5px;
+  box-sizing: border-box; /* Include padding and border in the total width and height */
 }
 
 .signup {
@@ -118,13 +122,56 @@ code {
   }
 }
 
-label {
+/* Log In Page */
+.login-elements {
+  display: flex; /* Use flex display to control the layout */
+  flex-direction: column; /* Stack child elements vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  height: 400px; /* Set a fixed height for signup-elements */
+  width: 100%; /* Set the width to 100% to fill the parent container */
+  margin: auto; /* Center the element horizontally if needed */
+  padding: 16px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+}
+
+.login {
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 8px;
+  border-radius: 5px;
+  Button {
+    size: large;
+    width: 300px;
+    padding: 10px;
+  }
+}
+
+/* Form Elements - Server Response Text */
+.response-text {
+  /* Positioning */
+  position: absolute;
+  top: 550px;
+  /* Styling */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: rgb(0, 199, 53);
+  background: black;
+}
+
+/* Form Elements - Server Error Text */
+.error-text {
+  /* Positioning */
+  position: absolute;
+  top: 550px;
+  /* Styling */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: rgb(255, 124, 124);
+  background: black;
 }
 
 .container {
@@ -148,15 +195,29 @@ label {
   justify-content: space-between;
 }
 
+/* BUTTONS */
 button {
-  padding: 10px;
-  margin-top: 50px;
-  /* font-family: 'Courier New', Courier, monospace; */
-  font-weight: 900;
-  border-radius: 10px;
-  color: white;
-  background-color: tomato;
+  margin-top: 30px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 30px;
   border: none;
+
+  /* Gradient Background */
+  background: linear-gradient(
+    to bottom,
+    #4cb8b8,
+    #0184b8
+  ); /* Adjust colors as needed */
+  color: #fff; /* Text color, set to contrast with the gradient background */
+}
+
+button:hover {
+  background: linear-gradient(
+    to bottom,
+    #307676,
+    #005070
+  ); /* Adjust colors as needed */
 }
 
 /* Tinder card module styling */
@@ -198,14 +259,12 @@ button {
   color: #fff;
 }
 
-
 input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   border-radius: 10px;
-
 }
 
 select {
@@ -216,4 +275,107 @@ select {
   border-radius: 10px;
   background-color: rgb(165, 162, 162);
   font-weight: bolder;
+}
+
+/* Dashboards */
+
+.adopter-dashboard {
+  /* Positioning */
+  position: absolute;
+  left: 0%;
+  top: 7.5%;
+  /* Sizing */
+  width: 100%;
+  height: 92%;
+  /* Styling */
+  background-color: black;
+}
+
+.matches-dashboard {
+  /* Positioning */
+  position: absolute;
+  top: 3px;
+  /* Sizing */
+  height: 99%;
+  width: 310px;
+  /* Styling */
+  background-color: rgba(22, 22, 22, 0.977);
+  /* Border */
+  border: none;
+}
+
+.matches-tab {
+  /* Organize Elements */
+  display: flex;
+  flex-direction: column;
+  margin-left: 25px;
+  /* Set a fixed height and make it scrollable */
+  height: 100%; /* Adjust the height based on your layout */
+  max-height: 86%; /* Set a maximum height as needed */
+  overflow-y: auto;
+
+  /* Style the scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #4cb8b8;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(211, 211, 211, 0.063);
+  }
+}
+
+.messages-tab {
+  /* Organize Elements */
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  li {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+}
+
+.match-msg-buttons {
+  /* Organize Elements */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: -53px;
+  Button {
+    margin-top: 50px;
+    width: 100%;
+    border: none;
+    border-radius: 0px;
+  }
+}
+
+.swiper-container {
+  /* Positioning */
+  position: absolute;
+  left: 49%;
+  top: 18%;
+}
+
+th {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+tr {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+table {
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+img {
+  width: 60px;
+  height: 60px;
 }

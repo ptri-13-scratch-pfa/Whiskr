@@ -7,12 +7,4 @@ router.post('/', userController.createUser, sessionController.startSession, (req
   return res.status(200).json(res.locals.ssid);
 });
 
-router.post('/adopter', userController.createAdopter, (req, res) => {
-  return res.status(200).json(true);
-});
-
-router.post('/cat', userController.createCat, (req, res) => {
-  return res.status(200).json('successfully');
-});
-
 module.exports = router;
