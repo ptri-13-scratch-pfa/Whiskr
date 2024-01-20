@@ -95,8 +95,15 @@ const catSchema = new Schema({
   },
 });
 
+//Matches schema is for mvp demonstration only
+const matchesSchema = new Schema({
+  name: { type: String },
+  imageUrl: { type: String },
+})
+
 const User = mongoose.model('User', userSchema);
 const Adopter = mongoose.model('Adopter', adopterSchema);
 const Cat = mongoose.model('Cat', catSchema);
+const Matches = mongoose.model('Matches', matchesSchema);
 
-module.exports = { User, Adopter, Cat };
+module.exports = { User, Adopter, Cat, Matches };
