@@ -23,9 +23,9 @@ const CatDashboard = () => {
       try {
         const response = await axios.get('/api/cats');
         setCharacters(response.data);
-        console.log('characters:', response.data);
+        console.log('* Retrieved cats from db:', response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error retrieving cats:', error);
       }
     };
 
