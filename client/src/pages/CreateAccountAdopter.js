@@ -49,8 +49,8 @@ const CreateAccountAdopter = () => {
 
   return (
     <div>
-      <h3>Create your adopter profile!</h3>
-      <form className='signup' onSubmit={handleSubmit}>
+      <form className='create-profile-page' onSubmit={handleSubmit}>
+        <h3>Create your adopter profile!</h3>
         <label>Email: </label>
         <input type='email' placeholder='email' ref={emailRef} />
         <label>Name: </label>
