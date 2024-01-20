@@ -255,19 +255,22 @@ select {
 
 /* MATCHES IN MATCHES TAB */
 .matches {
-  text-align: left;
+  text-align: center;
 }
 .matches p {
   font-size: 14px;
   margin-top: 14px;
   margin-bottom: -3px;
-  margin-left: 8px;
+  /* margin-left: 30%; */
 }
 .matches img {
-  width: 80px; /* Set the desired width for the image */
-  height: 80px; /* Set the desired height for the image */
+  /* Sizing */
+  width: 80px;
+  height: 80px;
+  /* Styling */
   object-fit: cover; /* Maintain the aspect ratio and cover the entire container */
-  border-radius: 50%; /* Make the image circular (optional) */
+  border-radius: 50%; /* Make the image circular */
+  /* Positioning */
   margin-top: 8px; /* Add some spacing between text and image */
 }
 
