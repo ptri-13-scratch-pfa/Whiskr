@@ -255,13 +255,13 @@ select {
 
 /* MATCHES IN MATCHES TAB */
 .matches {
-  text-align: left;
+  text-align: center;
 }
 .matches p {
   font-size: 14px;
   margin-top: 14px;
   margin-bottom: -3px;
-  margin-left: 30%;
+  /* margin-left: 30%; */
 }
 .matches img {
   /* Sizing */
@@ -272,7 +272,6 @@ select {
   border-radius: 50%; /* Make the image circular */
   /* Positioning */
   margin-top: 8px; /* Add some spacing between text and image */
-  margin-left: 30%;
 }
 
 /* MESSAGES TAB */
