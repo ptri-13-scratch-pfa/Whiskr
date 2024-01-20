@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv'); // NOTE Line 1
+const cookieSession = require("cookie-session");
 
 const loginRoute = require('./routes/loginRoutes');
 const signupRoute = require('./routes/signupRoutes.js');
@@ -19,6 +20,14 @@ console.log(
 
 app.use(express.json()); // enables server to parse JSON data sent in the body of reqs
 // app.use(express.static(path.resolve(__dirname, '../build'))); // NOTE May not be needed - during development w/ webpack, you can rely on webpack dev server for serving static assets (this line becomes more relevant when deploying to a production server where you want Express to handle static file serving)
+
+// Store session data on the client within a cookie without requiring database
+app.use(cookieSession({
+  name: "whiskr-session",
+  keys: ["secretekeyinsession"],
+  httpOnly: true
+}));
+
 
 // Connect to Mongo DB
 mongoose

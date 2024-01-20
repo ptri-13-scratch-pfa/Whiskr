@@ -1,27 +1,39 @@
 const jwt = require("jsonwebtoken");
-const dayjs = require("dayjs");
+const config = require("../config/auth.config");
+const Profile = require("../models/models.js");
 
 const authControllers = {};
 
-authControllers.generateToken = (req, res, next) => {
+authControllers.verifyToken = (req, res, next) => {
   try {
-    const jwtToken = jwt.sign({
-      id: res.locals.userid,
-      email: res.locals.userEmail,
-    });
-    console.log(">>> jwtTolen in authControllers.generateToken: ", jwtToken);
+    let token = req.session.token;
+    console.log(">>> token in authControllers.verifyToken: ", token);
 
-    res.cookie("api-auth", jwtToken, {
-      secure: false,
-      httpOnly: true,
-      expires: dayjs().add(7, "days").toDate(),
-    });
+    // if there is no tolen for current user
+    if (!token) {
+      const notoken = {
+        log: "Express error handler caught authControllers.verifyToken error",
+        status: 400,
+        message: { err: "No Token Found" },
+      };
+      return next(notoken);
+    }
 
+    // if there is token then verify its token
+    jwt.verify(token, config.secret, (err, decoded) => {
+      if (err) {
+        return next(
+          "Error in authControllers.verifyToken jwt.verify: " +
+            JSON.stringify(err)
+        );
+      }
+      console.log("decoded content in jwt.verify: ", decoded);
+      req.userid = decoded.id;
+    })
     return next();
+
   } catch (err) {
-    return next(
-      "Error in authControllers.generateToken: " + JSON.stringify(err)
-    );
+    return next("Error in authControllers.verifyToken: " + JSON.stringify(err));
   }
 };
 

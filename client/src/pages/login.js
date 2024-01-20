@@ -23,27 +23,11 @@ const Login = () => {
 
     // Make POST request to Atlas DB to add new user
     try {
-
-      // store Authentication in the browser localStorage
-      const storeAuthentication = (token, user) => {
-        localStorage.setItem("api-token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-
       const loginRes = await axios.post('/login', userCredentials, {withCredentials: true});
 
       console.log('* Login response from server: ', loginRes);
       setRes(`User has created an Adopter or Cat Profile: ${loginRes.data}.`);
       setErr(null);
-
-      // authenticating
-      if (loginRes && loginRes.data) {
-        const { token, user } = loginRes.data;
-        console.log(">>> token in the login in page from React: ", token);
-        console.log(">>> user in the login in page from React: ", user);
-        storeAuthentication(token, user);
-        alert("Welcome back in. Authenricating...");
-      }
 
       // If the user has not created an Adopter or Cat profile yet...
       if (!loginRes.data) {

@@ -1,5 +1,7 @@
 const Profile = require('../models/models.js');
+const config = require("../config/auth.config");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const loginControllers = {};
 
@@ -42,6 +44,26 @@ loginControllers.verifyUser = async (req, res, next) => {
       res.locals.profileType = foundUser.profileType;
       res.locals.userid = foundUser._id
       console.log(">>> userid from loginController.verifyUser: ", foundUser._id);
+
+      // generate token if match with records
+      const token = jwt.sign(
+        {
+          "userInfo": {
+            "email": foundUser.email,
+            "profileTpe": foundUser.profileType,
+          },
+        },
+        config.secret,
+        {
+          algorithm: "HS256",
+          allowInsecureKeySizes: true,
+          expiresIn: 86400,
+        }
+      );
+      req.session.token = token;
+      res.cookie("token", token);
+      console.log(">>> token generated in loginControllers.verifyUser", token);
+
       return next();
     } else {
       const invalidPasswordErr = {

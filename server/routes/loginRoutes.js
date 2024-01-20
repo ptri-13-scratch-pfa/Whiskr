@@ -1,14 +1,13 @@
 const router = require("express").Router();
 const path = require("path");
 const loginControllers = require("../controllers/loginControllers");
-const sessionController = require("../controllers/sessionController");
 const authControllers = require("../controllers/authControllers");
 
-router.post("/",
+router.post(
+  "/",
   loginControllers.verifyUser,
-  authControllers.generateToken,
+  authControllers.verifyToken,
   loginControllers.verifyAdopterOrCat,
-  sessionController.isLoggedIn,
   (req, res) => {
     res.json(res.locals.hasAdopterOrCatProfile);
   }
