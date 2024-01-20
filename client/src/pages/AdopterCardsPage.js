@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import TinderCard from 'react-tinder-card';
-import MatchesDashboard from '../components/MatchesDashboard';
+import SideBar from '../components/SideBar.js';
 
 const AdopterDashboard = () => {
   //GET request to /api/adopters
@@ -10,7 +10,8 @@ const AdopterDashboard = () => {
   const [lastDirection, setLastDirection] = useState();
 
   const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete);
+    console.log('* Removing: ' + nameToDelete);
+    console.log('* Direction swiped: ', direction);
     setLastDirection(direction);
   };
 
@@ -23,7 +24,7 @@ const AdopterDashboard = () => {
       try {
         const response = await axios.get('/api/adopters');
         setCharacters(response.data);
-        console.log('characters:', response.data);
+        console.log('* Adopters loaded from Adopters db:', response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -33,27 +34,26 @@ const AdopterDashboard = () => {
   }, []);
 
   return (
-    <div className='adopter-dashboard'>
-      <div className='swiper-container'>
-        <div className='card-container'>
-          {characters.map(character => (
-            <TinderCard
-              className='swipe'
-              key={character.name}
-              onSwipe={dir => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}
+    <div className='cards-page'>
+      <div className='card-container'>
+        {characters.map(character => (
+          <TinderCard
+            className='swipe'
+            key={character.name}
+            onSwipe={dir => swiped(dir, character.name)}
+            onCardLeftScreen={() => outOfFrame(character.name)}
+          >
+            <div
+              style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
+              className='card'
             >
-              <div
-                style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
-                className='card'
-              >
-                <h3>{character.name}</h3>
-              </div>
-            </TinderCard>
-          ))}
-        </div>
+              <h3>{character.name}</h3>
+            </div>
+          </TinderCard>
+        ))}
       </div>
-      <MatchesDashboard className='matches-dashboard' />
+
+      <SideBar className='side-bar' />
     </div>
   );
 };

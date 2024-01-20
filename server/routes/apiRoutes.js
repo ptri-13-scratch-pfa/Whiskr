@@ -10,4 +10,8 @@ router.get('/adopters', apiControllers.getAdoptersData, (req, res) => {
   res.json(res.locals.adopters);
 });
 
+router.get('/matches', apiControllers.getMatches, (req, res) => {
+  res.json(res.locals.matches);
+});
+
 module.exports = router;

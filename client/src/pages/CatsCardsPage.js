@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import TinderCard from 'react-tinder-card';
-import MatchesDashboard from '../components/MatchesDashboard';
+import SideBar from '../components/SideBar.js';
 
 const CatDashboard = () => {
   const [characters, setCharacters] = useState([]);
@@ -23,9 +23,9 @@ const CatDashboard = () => {
       try {
         const response = await axios.get('/api/cats');
         setCharacters(response.data);
-        console.log('characters:', response.data);
+        console.log('* Retrieved cats from db:', response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error retrieving cats:', error);
       }
     };
 
@@ -33,27 +33,42 @@ const CatDashboard = () => {
   }, []); // Empty dependency array ensures useEffect runs once after initial render
 
   return (
-    <div className='adopter-dashboard'>
-      <div className='swiper-container'>
-        <div className='card-container'>
-          {characters.map(character => (
-            <TinderCard
-              className='swipe'
-              key={character.name}
-              onSwipe={dir => swiped(dir, character.name)}
-              onCardLeftScreen={() => outOfFrame(character.name)}
-            >
+    <div className='cards-page'>
+      <div className='card-container'>
+        {characters.map(character => (
+          <TinderCard
+            className='swipe'
+            key={character.name}
+            onSwipe={dir => swiped(dir, character.name)}
+            onCardLeftScreen={() => outOfFrame(character.name)}
+          >
+            <div className='card-contents'>
               <div
-                style={{ backgroundImage: 'url(' + character.imageUrl + ')' }}
+                style={{
+                  backgroundImage: 'url(' + character.imageUrl + ')',
+                  padding: '10px',
+                  boxSizing: 'border-box',
+                }}
                 className='card'
               >
-                <h3>{character.name}</h3>
+                <h2 className='card-name'>
+                  {character.name + ', ' + character.age}
+                </h2>
               </div>
-            </TinderCard>
-          ))}
-        </div>
+              <div className='more-info-block'>
+                <label>breed</label>
+                <p className='card-fetched-data'>{character.breed}</p>
+                <label>contact</label>
+                <p className='card-fetched-data'>{character.email}</p>
+                <label>about me</label>
+                <p className='card-fetched-data'>{character.aboutMe}</p>
+              </div>
+            </div>
+          </TinderCard>
+        ))}
       </div>
-      <MatchesDashboard className='matches-dashboard' />
+
+      <SideBar className='side-bar' />
     </div>
   );
 };

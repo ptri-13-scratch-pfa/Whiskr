@@ -41,8 +41,8 @@ const Signup = () => {
   };
 
   return (
-    <div className='signup-elements'>
-      <form className='signup' onSubmit={handleSubmit}>
+    <div className='signup-page'>
+      <form className='signup-form' onSubmit={handleSubmit}>
         <h3>Sign up</h3>
 
         <input type='email' placeholder='email' ref={emailRef} />

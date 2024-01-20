@@ -21,7 +21,7 @@ const Login = () => {
       password: passwordRef.current.value,
     };
 
-    // Make POST request to Atlas DB to add new user
+    // Make POST request to Atlas DB to verify user has an account to log in
     try {
       const loginRes = await axios.post('/login', userCredentials);
 
@@ -59,8 +59,8 @@ const Login = () => {
   };
 
   return (
-    <div className='login-elements'>
-      <form className='login' onSubmit={handleSubmit}>
+    <div className='login-page'>
+      <form className='login-form' onSubmit={handleSubmit}>
         <h3>Log In</h3>
 
         <input type='email' placeholder='email' ref={emailRef} />

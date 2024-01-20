@@ -25,4 +25,16 @@ apiControllers.getAdoptersData = async (req, res, next) => {
   }
 };
 
+apiControllers.getMatches = async (req, res, next) => {
+  console.log(`Getting matches on account ${req.body.email} `)
+  try {
+    const matches = await model.Matches.find();
+    res.locals.matches = matches;
+    console.log('res.locals.matches:', res.locals.matches)
+    return next()
+  } catch (err) {
+    return next(err);
+  }
+}
+
 module.exports = apiControllers;
