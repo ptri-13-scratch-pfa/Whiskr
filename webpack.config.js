@@ -1,7 +1,7 @@
 // Modules
 const path = require("path");
 const dotenv = require("dotenv");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin"); // generate an HTML file and inject the necessary script tags automatically
 
 dotenv.config();
 
@@ -61,8 +61,8 @@ module.exports = {
     extensions: [".js", ".jsx"],
   },
   performance: {
-    hints: false,
-    maxEntrypointSize: 512000,
-    maxAssetSize: 512000,
+    hints: false, // webpack won't emit warnings based on these size limits during the build
+    maxEntrypointSize: 512000, // sets the max size, in bytes, that the entry point (main bundle) file should be before triggering a warning or error
+    maxAssetSize: 512000, // sets the maximum size for individual assets (like images, stylesheets, etc.)
   },
 };
