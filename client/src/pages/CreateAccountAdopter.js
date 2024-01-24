@@ -1,8 +1,7 @@
 // Modules
-import React from "react";
-import axios from "axios";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreateAccountAdopter = () => {
   const emailRef = useRef();
