@@ -1,16 +1,16 @@
 const router = require('express').Router();
 const path = require('path');
-const apiControllers = require('../controllers/apiControllers');
+const apiController = require('../controllers/apiController.js');
 
-router.get('/cats', apiControllers.getCatsData, (req, res) => {
+router.get('/cats', apiController.getCatsData, (req, res) => {
   res.json(res.locals.cats);
 });
 
-router.get('/adopters', apiControllers.getAdoptersData, (req, res) => {
+router.get('/adopters', apiController.getAdoptersData, (req, res) => {
   res.json(res.locals.adopters);
 });
 
-router.get('/matches', apiControllers.getMatches, (req, res) => {
+router.get('/matches', apiController.getMatches, (req, res) => {
   res.json(res.locals.matches);
 });
 

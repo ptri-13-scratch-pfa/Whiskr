@@ -1,7 +1,7 @@
 const model = require('../models/models.js');
-const apiControllers = {};
+const apiController = {};
 
-apiControllers.getCatsData = async (req, res, next) => {
+apiController.getCatsData = async (req, res, next) => {
   console.log('* Retrieving cat profiles from db...');
   try {
     const cats = await model.Cat.find();
@@ -12,7 +12,7 @@ apiControllers.getCatsData = async (req, res, next) => {
   }
 };
 
-apiControllers.getAdoptersData = async (req, res, next) => {
+apiController.getAdoptersData = async (req, res, next) => {
   console.log('* Retrieving adopter profiles from db...');
   try {
     const adopters = await model.Adopter.find();
@@ -23,7 +23,7 @@ apiControllers.getAdoptersData = async (req, res, next) => {
   }
 };
 
-apiControllers.getMatches = async (req, res, next) => {
+apiController.getMatches = async (req, res, next) => {
   console.log(`* Retrieving matches for ${req.body.email}`);
   try {
     const matches = await model.Matches.find();
@@ -34,4 +34,4 @@ apiControllers.getMatches = async (req, res, next) => {
   }
 };
 
-module.exports = apiControllers;
+module.exports = apiController;

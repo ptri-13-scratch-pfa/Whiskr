@@ -1,16 +1,22 @@
+// Modules
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Stylesheet
 import './stylesheet.css';
 
-import Home from './pages/Home';
-import Navbar from './components/Navbar';
-import Login from './pages/Login';
-import Signup from './pages/signup';
-import CreateAccountAdopter from './pages/CreateAccountAdopter';
-import CreateAccountCat from './pages/CreateAccountCat';
-import About from './pages/About';
-import AdopterCardsPage from './pages/AdopterCardsPage';
-import CatCardsPage from './pages/CatsCardsPage';
+// Components
+import Navbar from './components/Navbar.js';
+
+// Pages
+import Home from './pages/Home.js';
+import Login from './pages/Login.js';
+import Signup from './pages/Signup.js';
+import CreateAccountAdopter from './pages/CreateAccountAdopter.js';
+import CreateAccountCat from './pages/CreateAccountCat.js';
+import About from './pages/About.js';
+import AdopterCardsPage from './pages/AdopterCardsPage.js';
+import CatCardsPage from './pages/CatsCardsPage.js';
 
 function App() {
   return (

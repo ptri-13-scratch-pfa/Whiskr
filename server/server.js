@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv'); // NOTE Line 1
 const cookieParser = require('cookie-parser');
 
-const loginRoute = require('./routes/loginRoutes');
-const signupRoute = require('./routes/signupRoutes.js');
-const apiRoute = require('./routes/apiRoutes.js');
+const loginRoutes = require('./routes/loginRoutes.js');
+const signupRoutes = require('./routes/signupRoutes.js');
+const apiRoutes = require('./routes/apiRoutes.js');
 
 dotenv.config(); // NOTE Line 2
 const app = express();
@@ -39,9 +39,9 @@ mongoose
   .catch(err => console.log(err));
 
 // Route handlers
-app.use('/api', apiRoute);
-app.use('/signup', signupRoute);
-app.use('/login', loginRoute);
+app.use('/api', apiRoutes);
+app.use('/signup', signupRoutes);
+app.use('/login', loginRoutes);
 
 // Global error handler
 app.use((err, req, res, next) => {
