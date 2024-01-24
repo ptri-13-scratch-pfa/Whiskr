@@ -101,13 +101,15 @@ loginControllers.verifyAdopterOrCat = async (req, res, next) => {
   }
 };
 
+// Get the account type of the user logging in
 loginControllers.getAccountType = async (req, res, next) => {
-  console.log('* Handling getting account type of user...');
+  console.log('* Handling getting profile type of user...');
 
   try {
     const { email } = req.body;
 
     const foundUser = await Profile.User.findOne({ email: email });
+    console.log(`  - Profile type for ${email}: `, foundUser.profileType);
     res.locals.accountType = foundUser.profileType;
     return next();
   } catch (err) {
