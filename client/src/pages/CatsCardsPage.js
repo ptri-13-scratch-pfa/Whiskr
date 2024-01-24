@@ -8,13 +8,20 @@ const CatDashboard = () => {
   const [characters, setCharacters] = useState([]);
   const [lastDirection, setLastDirection] = useState();
 
-  const swiped = (direction, nameToDelete) => {
-    console.log('removing: ' + nameToDelete);
+  const updateMatches = async () => {};
+
+  const swiped = (direction, swipedProfileId) => {
+    console.log(`* Swiped ${direction} on ${nameToDelete}`);
+
+    if (direction === 'right') {
+      updateMatches(swipedProfileId);
+    }
+
     setLastDirection(direction);
   };
 
   const outOfFrame = name => {
-    console.log(name + ' left the screen!');
+    console.log(`* ${name} left the screen!`);
   };
 
   useEffect(() => {
@@ -39,7 +46,7 @@ const CatDashboard = () => {
           <TinderCard
             className='swipe'
             key={character.name}
-            onSwipe={dir => swiped(dir, character.name)}
+            onSwipe={dir => swiped(dir, character._id)}
             onCardLeftScreen={() => outOfFrame(character.name)}
           >
             <div className='card-contents'>
