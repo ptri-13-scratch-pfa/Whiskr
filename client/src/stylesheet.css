@@ -30,9 +30,10 @@ body {
   /* padding-bottom: 100px; */
   h1 {
     margin: 20px;
+    color: #f4496f;
   }
   a {
-    color: #f4496f;
+    color: #000;
     text-decoration: none;
     font-weight: bolder;
   }
@@ -124,13 +125,13 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   background: #fdfeff;
   border-radius: 8px;
   height: 400px;
   width: 800px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .signup-login-buttons {
@@ -384,4 +385,8 @@ select {
   font-size: 16px;
   margin-top: 8px;
   margin-bottom: 30px;
+}
+
+.googleOauthButton {
+  margin: 30px;
 }
