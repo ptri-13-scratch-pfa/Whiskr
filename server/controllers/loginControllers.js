@@ -1,13 +1,23 @@
 const Profile = require('../models/models.js');
 const loginControllers = {};
-
+const jwtDecode = require('jwt-decode');
 const bcrypt = require('bcryptjs');
+
 
 // Log in user
 loginControllers.verifyUser = async (req, res, next) => {
   console.log('* Handling logging user in...');
-
+  // console.log(req.body.googleIdToken, 'request.params in verifyUser');
   try {
+    if ( req.body.googleIdToken ) {
+      // Verify the ID Token
+      
+      // console.log(req.body.googleIdToken);
+      const decoded = jwtDecode(req.body.googleIdToken);
+
+      console.log(decoded, 'decoded response');
+      
+    }  
     const { email, password } = req.body;
 
     // Handle missing fields
