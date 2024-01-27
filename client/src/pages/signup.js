@@ -27,7 +27,10 @@ const Signup = () => {
     try {
       const userResponse = await axios.post('/signup', newUser);
 
-      console.log('* New user profile created, _id: ', userResponse.data);
+      console.log('* New user profile created, _id: ', userResponse.data.id);
+      console.log('* New user profile created, _id: ', typeof userResponse.data.id);
+      console.log('profileTypeRef', profileTypeRef.current.value);
+      
 
       setRes(
         `User ID Created: ${userResponse.data}.  Please proceed to log in page.`
@@ -44,7 +47,6 @@ const Signup = () => {
     <div className='signup-page'>
       <form className='signup-form' onSubmit={handleSubmit}>
         <h3>Sign up</h3>
-
         <input type='email' placeholder='email' ref={emailRef} />
         <input type='password' placeholder='password' ref={passwordRef} />
         <select ref={profileTypeRef}>

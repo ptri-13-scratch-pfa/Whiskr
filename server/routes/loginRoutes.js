@@ -8,6 +8,7 @@ router.post(
   loginControllers.verifyUser,
   loginControllers.verifyAdopterOrCat,
   cookieControllers.setCookie, (req, res) => {
+    console.log('res.locals.hasAdopterOrCatProfile -->', res.locals.hasAdopterOrCatProfile)
     res.json(res.locals.hasAdopterOrCatProfile);
   }
 );
