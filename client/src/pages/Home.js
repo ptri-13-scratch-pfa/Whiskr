@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
-const Home = () => {
-  const history = useHistory();
+const Home = ({handleGoogleUser}) => {
   const navigate = useNavigate();
 
   // setting the current googleIdToken accessed 
@@ -19,7 +17,8 @@ const Home = () => {
     // we are sending a post request to /login passing in the ID Token
     axios.post('/login', { googleIdToken })
     .then(response => {
-      console.log('history', useHistory);
+      console.log(response);
+      handleGoogleUser(response);
       navigate('/signup');
     })
     .catch(error => {
