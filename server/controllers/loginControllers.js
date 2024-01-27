@@ -1,6 +1,6 @@
 const Profile = require('../models/models.js');
 const loginControllers = {};
-const jwtDecode = require('jwt-decode');
+const { jwtDecode } = require('jwt-decode');
 const bcrypt = require('bcryptjs');
 
 
@@ -9,16 +9,16 @@ loginControllers.verifyUser = async (req, res, next) => {
   console.log('* Handling logging user in...');
   // console.log(req.body.googleIdToken, 'request.params in verifyUser');
   try {
+    let decoded; 
     if ( req.body.googleIdToken ) {
       // Verify the ID Token
-      
       // console.log(req.body.googleIdToken);
-      const decoded = jwtDecode(req.body.googleIdToken);
-
-      console.log(decoded, 'decoded response');
-      
-    }  
-    const { email, password } = req.body;
+      decoded = jwtDecode(req.body.googleIdToken);
+      req.body.email = decoded.email;
+      req.body.password = decoded.sub;
+    }
+    
+    const { email, password, googleIdToken } = req.body;
 
     // Handle missing fields
     if ((!email, !password)) {
@@ -26,13 +26,20 @@ loginControllers.verifyUser = async (req, res, next) => {
         log: 'Express error handler caught loginControllers.verifyUser error',
         status: 400,
         message: { err: 'Missing required fields' },
-      };
+      }
       return next(missingFieldsErr);
-    }
+    } 
 
     // Find user in db
     const foundUser = await Profile.User.findOne({ email: email });
     if (foundUser) console.log('  - User found in db: ', foundUser);
+    else if (!foundUser && decoded) {
+      res.locals.googleUser = {
+        email, 
+        password
+      }
+      return next();
+    }
     else {
       const userDneErr = {
         log: 'Express error handler caught loginControllers.verifyUser error',
@@ -65,6 +72,9 @@ loginControllers.verifyUser = async (req, res, next) => {
 
 // Verify if the logged in user has an Adopter profile or Cat profile
 loginControllers.verifyAdopterOrCat = async (req, res, next) => {
+  if (res.locals.googleUser) {
+    return next();
+  }
   console.log(
     '* Handling verifying if user has created an adopter profile or cat profile yet...'
   );

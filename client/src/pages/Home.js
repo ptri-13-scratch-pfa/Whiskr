@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 const Home = () => {
-  // const navigate = useNavigate();
+  const history = useHistory();
+  const navigate = useNavigate();
 
   // setting the current googleIdToken accessed 
   // from google Oauth to be the ID Token
@@ -16,10 +19,12 @@ const Home = () => {
     // we are sending a post request to /login passing in the ID Token
     axios.post('/login', { googleIdToken })
     .then(response => {
-      console.log(response.data)
+      console.log('history', useHistory);
+      navigate('/signup');
     })
     .catch(error => {
       console.error(error, 'error in Home.js for google Oauth');
+      // navigate('/signup');
     })
 
     // if (user) {
@@ -58,18 +63,18 @@ const Home = () => {
             </Link>
           </div>
           <div className="googleOauthButton">
-            <GoogleOAuthProvider clientId="1079671404261-jp1egqad4jak3pgj3l53cemqb1inqbj9.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={credentialResponse => {
                   // This is the ID token! 
                   const idToken = credentialResponse.credential;
+                  // const decoded = jwtDecode(idToken);
+                  // console.log(decoded);
                   setGoogleIdToken(idToken)
                 }}
                 onError={() => {
                   console.log('Login Failed');
                 }}
               />
-            </GoogleOAuthProvider>
           </div>
         </div>
       </div>
