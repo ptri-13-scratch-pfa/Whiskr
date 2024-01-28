@@ -17,32 +17,25 @@ const Home = ({handleGoogleUser}) => {
     // we are sending a post request to /login passing in the ID Token
     axios.post('/login', { googleIdToken })
     .then(response => {
-      console.log(response);
-      handleGoogleUser(response);
-      navigate('/signup');
+      console.log(response.data, 'response in home.js')
+      handleGoogleUser(response.data);
+      const { hasAdopterOrCatProfile, profileType } = response.data;
+      if (profileType === undefined) {
+        navigate('/signup');
+      } else if (profileType === 'Cat' && hasAdopterOrCatProfile === false) {
+        navigate('/create-account-cat');
+      } else if (profileType === 'Cat' && hasAdopterOrCatProfile === true) {
+        navigate('/CatsCardsPage')
+      } else if (profileType === 'Adopter' && hasAdopterOrCatProfile === false) {
+      navigate('/createAccountAdopter');
+      } else if (profileType === 'Adopter' && hasAdopterOrCatProfile === true) {
+        navigate('/AdopterCardsPage')
+      }
     })
     .catch(error => {
       console.error(error, 'error in Home.js for google Oauth');
       // navigate('/signup');
     })
-
-    // if (user) {
-    //   let credentials = {
-    //     email: user, 
-    //     password: 'google'
-    //   }
-    //   axios.post('/login/', credentials)
-    //   .then(data => {
-    //     if (data.profileType === 'Adopter') {
-    //       navigate('/CatsCardsPage');
-    //     } else if (data.profileType === 'Cat') {
-    //       navigate('/AdopterCardsPage');
-    //     } 
-    //   }).catch(error => {
-    //     console.log(error);
-    //     navigate('/signup');
-    //   }) 
-    // }
   }, [googleIdToken])
 
   return (
@@ -64,10 +57,7 @@ const Home = ({handleGoogleUser}) => {
           <div className="googleOauthButton">
               <GoogleLogin
                 onSuccess={credentialResponse => {
-                  // This is the ID token! 
                   const idToken = credentialResponse.credential;
-                  // const decoded = jwtDecode(idToken);
-                  // console.log(decoded);
                   setGoogleIdToken(idToken)
                 }}
                 onError={() => {

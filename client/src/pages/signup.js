@@ -7,10 +7,8 @@ const Signup = (googleUser) => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const profileTypeRef = useRef();
-  console.log('googleUser in signup.js', googleUser)
-  const googleCredentials = googleUser.googleUser.data.googleUser;
-  console.log('googleCrentials.email', googleCredentials.email)
-console.log(googleCredentials, 'googleCredentials in signup.js')
+  const googleCredentials = googleUser.googleUser.googleUser;
+  console.log(googleCredentials.email, 'googleCredentials in signup.js');
   // Response/error from server
   const [res, setRes] = useState(null);
   const [err, setErr] = useState(null);
