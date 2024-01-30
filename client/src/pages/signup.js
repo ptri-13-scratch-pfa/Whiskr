@@ -40,6 +40,7 @@ const Signup = ({googleUser}) => {
         `User ID Created: ${userResponse.data}.  Please proceed to log in page.`
       );
       setErr(null);
+      navigate('/login');
     } catch (err) {
       console.log('* Error from server: ', err.response.data);
       setRes(null);
