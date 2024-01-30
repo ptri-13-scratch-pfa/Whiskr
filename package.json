@@ -6,10 +6,6 @@
   "scripts": {
     "build": "webpack",
     "dev": "NODE_ENV=development concurrently \"nodemon --watch server ./server/server.js\" \"webpack serve --open\"",
-    "start": "react-scripts start",
-    "client-build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "test": "jest"
   },
   "keywords": [],
