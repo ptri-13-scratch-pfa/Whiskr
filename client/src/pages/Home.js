@@ -12,7 +12,6 @@ const Home = ({handleGoogleUser}) => {
   // from google Oauth to be the ID Token
   const [googleIdToken, setGoogleIdToken] = useState(null);
 
-
   useEffect(() => {
     // we are sending a post request to /login passing in the ID Token
     axios.post('/login', { googleIdToken })

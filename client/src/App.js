@@ -14,6 +14,7 @@ import CatCardsPage from './pages/CatsCardsPage';
 
 function App() {
   const [googleUser, setGoogleUser] = useState(null);
+  console.log(googleUser, 'googleUser');
 
   const handleGoogleUser = (data) => {
     setGoogleUser(data);
