@@ -18,7 +18,7 @@ loginControllers.verifyUser = async (req, res, next) => {
       req.body.password = decoded.sub;
     }
     
-    const { email, password, googleIdToken } = req.body;
+    const { email, password } = req.body;
 
     // Handle missing fields
     if ((!email, !password)) {
