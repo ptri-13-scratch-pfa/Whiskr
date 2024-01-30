@@ -28,9 +28,7 @@ function App() {
             <Route path='/login' element={<Login googleUser={googleUser} />} />
             <Route path='/about' element={<About />} />
             <Route path='/signup' element={<Signup googleUser={googleUser}/>} />
-            <Route
-              path='/createAccountAdopter'
-              element={<CreateAccountAdopter />}
+            <Route path='/createAccountAdopter' element={<CreateAccountAdopter googleUser={googleUser} />}
             />
             <Route path='/create-account-cat' element={<CreateAccountCat googleUser={googleUser} />} />
             <Route path='/AdopterCardsPage' element={<AdopterCardsPage />} />
