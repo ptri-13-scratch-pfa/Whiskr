@@ -31,7 +31,10 @@ const Signup = ({googleUser}) => {
     try {
       const userResponse = await axios.post('/signup', newUser);
 
-      console.log('* New user profile created, _id: ', userResponse.data);
+      console.log('* New user profile created, _id: ', userResponse.data.id);
+      console.log('* New user profile created, _id: ', typeof userResponse.data.id);
+      console.log('profileTypeRef', profileTypeRef.current.value);
+      
 
       setRes(
         `User ID Created: ${userResponse.data}.  Please proceed to log in page.`
