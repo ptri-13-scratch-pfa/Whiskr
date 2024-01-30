@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+// import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
-const Home = () => {
+const Home = ({handleGoogleUser}) => {
   const navigate = useNavigate();
 
   // setting the current googleIdToken accessed 
@@ -16,29 +17,25 @@ const Home = () => {
     // we are sending a post request to /login passing in the ID Token
     axios.post('/login', { googleIdToken })
     .then(response => {
-      console.log(response.data)
+      console.log(response.data, 'response in home.js')
+      handleGoogleUser(response.data);
+      const { hasAdopterOrCatProfile, profileType } = response.data;
+      if (profileType === undefined) {
+        navigate('/signup');
+      } else if (profileType === 'Cat' && hasAdopterOrCatProfile === false) {
+        navigate('/create-account-cat');
+      } else if (profileType === 'Cat' && hasAdopterOrCatProfile === true) {
+        navigate('/CatsCardsPage')
+      } else if (profileType === 'Adopter' && hasAdopterOrCatProfile === false) {
+      navigate('/createAccountAdopter');
+      } else if (profileType === 'Adopter' && hasAdopterOrCatProfile === true) {
+        navigate('/AdopterCardsPage')
+      }
     })
     .catch(error => {
       console.error(error, 'error in Home.js for google Oauth');
+      // navigate('/signup');
     })
-
-    // if (user) {
-    //   let credentials = {
-    //     email: user, 
-    //     password: 'google'
-    //   }
-    //   axios.post('/login/', credentials)
-    //   .then(data => {
-    //     if (data.profileType === 'Adopter') {
-    //       navigate('/CatsCardsPage');
-    //     } else if (data.profileType === 'Cat') {
-    //       navigate('/AdopterCardsPage');
-    //     } 
-    //   }).catch(error => {
-    //     console.log(error);
-    //     navigate('/signup');
-    //   }) 
-    // }
   }, [googleIdToken])
 
   return (
@@ -58,10 +55,8 @@ const Home = () => {
             </Link>
           </div>
           <div className="googleOauthButton">
-            <GoogleOAuthProvider clientId="1079671404261-jp1egqad4jak3pgj3l53cemqb1inqbj9.apps.googleusercontent.com">
               <GoogleLogin
                 onSuccess={credentialResponse => {
-                  // This is the ID token! 
                   const idToken = credentialResponse.credential;
                   setGoogleIdToken(idToken)
                 }}
@@ -69,7 +64,6 @@ const Home = () => {
                   console.log('Login Failed');
                 }}
               />
-            </GoogleOAuthProvider>
           </div>
         </div>
       </div>
