@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import axios from 'axios';
 
 const Home = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // setting the current googleIdToken accessed 
   // from google Oauth to be the ID Token
