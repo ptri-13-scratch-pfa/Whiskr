@@ -8,6 +8,7 @@ userController.createUser = async (req, res, next) => {
   console.log('* Handling registering a user...');
 
   try {
+
     const { email, password, profileType } = req.body;
 
     // Handle missing fields
