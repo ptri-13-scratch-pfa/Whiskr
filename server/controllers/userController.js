@@ -8,6 +8,7 @@ userController.createUser = async (req, res, next) => {
   console.log('* Handling registering a user...');
 
   try {
+
     const { email, password, profileType } = req.body;
 
     // Handle missing fields
@@ -43,7 +44,7 @@ userController.createUser = async (req, res, next) => {
     console.log('* User successfully saved to db: ', registeredUser);
     res.locals._id = registeredUser._id;
     return next();
-  } catch (err) {
+  }  catch (err) {
     return next('Error in UserController.createUser: ' + JSON.stringify(err));
   }
 };

@@ -38,6 +38,10 @@ mongoose
   .then(() => console.log('* Connected to Mongo DB.'))
   .catch(err => console.log(err));
 
+  app.get('/', (req,res,next)=>{
+    res.status(200).json({message: "Hello, World"})
+  })
+
 // Route handlers
 app.use('/api', apiRoute);
 app.use('/signup', signupRoute);
